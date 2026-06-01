@@ -2,14 +2,34 @@
   <div class="vanagain-blog-header__intro">
     <p class="vanagain-blog-header__eyebrow">VanAgain Journal</p>
     <h1>The VanAgain Blog</h1>
-    <p>Tips, how-to guides, and stories from the VW van community.</p>
+    <p>Repair notes, fitment guidance, and practical parts references for VW Bus, Vanagon, and Eurovan owners.</p>
+    <div class="vanagain-blog-header__actions">
+      <a href="{{ routes.all_products_collection_url }}?filter.v.availability=1">Shop in-stock parts</a>
+      <a href="/pages/contact">Ask fitment help</a>
+    </div>
   </div>
 
   <nav class="vanagain-blog-header__categories" aria-label="Blog categories">
-    <a href="{{ blog.url | default: '/blogs/news' }}">All Posts</a>
+    <a
+      class="vanagain-blog-header__category{% if current_tags == blank %} is-active{% endif %}"
+      href="{{ blog.url | default: '/blogs/news' }}"
+      {% if current_tags == blank %}aria-current="page"{% endif %}
+    >
+      All Posts
+    </a>
     {% if blog != blank and blog.all_tags != blank %}
       {% for tag in blog.all_tags limit: 24 %}
-        <a href="{{ blog.url | default: '/blogs/news' }}/tagged/{{ tag | handleize }}">{{ tag }}</a>
+        {% assign tag_is_active = false %}
+        {% if current_tags contains tag %}
+          {% assign tag_is_active = true %}
+        {% endif %}
+        <a
+          class="vanagain-blog-header__category{% if tag_is_active %} is-active{% endif %}"
+          href="{{ blog.url | default: '/blogs/news' }}/tagged/{{ tag | handleize }}"
+          {% if tag_is_active %}aria-current="page"{% endif %}
+        >
+          {{ tag }}
+        </a>
       {% endfor %}
     {% endif %}
   </nav>
@@ -17,12 +37,12 @@
 
 {% stylesheet %}
   .vanagain-blog-header {
-    padding-block: 2.25rem 1.5rem;
+    padding-block: 3rem 1.5rem;
   }
 
   .vanagain-blog-header__intro h1 {
     margin: 0.25rem 0 0.6rem;
-    font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+    font-size: 2.5rem;
   }
 
   .vanagain-blog-header__eyebrow {
@@ -35,8 +55,37 @@
   }
 
   .vanagain-blog-header__intro p {
+    max-width: 46rem;
     margin: 0;
     color: #4b5563;
+    line-height: 1.65;
+  }
+
+  .vanagain-blog-header__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.2rem;
+  }
+
+  .vanagain-blog-header__actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.45rem;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid #d7e4eb;
+    border-radius: 999px;
+    color: #234155;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    background: #ffffff;
+  }
+
+  .vanagain-blog-header__actions a:first-child {
+    border-color: #1a6b8a;
+    background: #1a6b8a;
+    color: #ffffff;
   }
 
   .vanagain-blog-header__categories {
@@ -46,7 +95,7 @@
     gap: 0.55rem;
   }
 
-  .vanagain-blog-header__categories a {
+  .vanagain-blog-header__category {
     border: 1px solid #d7e4eb;
     border-radius: 999px;
     padding: 0.42rem 0.72rem;
@@ -56,10 +105,17 @@
     background: #ffffff;
   }
 
-  .vanagain-blog-header__categories a:hover {
+  .vanagain-blog-header__category:hover,
+  .vanagain-blog-header__category.is-active {
     color: #ffffff;
     background: #1a6b8a;
     border-color: #1a6b8a;
+  }
+
+  @media screen and (max-width: 749px) {
+    .vanagain-blog-header__intro h1 {
+      font-size: 2rem;
+    }
   }
 {% endstylesheet %}
 

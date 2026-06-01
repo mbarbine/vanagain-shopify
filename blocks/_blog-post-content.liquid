@@ -1,8 +1,18 @@
 
+{% liquid
+  assign rendered_article_content = article.content
+  capture legacy_article_content
+    render 'vanagain-legacy-article-fallback', article: article
+  endcapture
+
+  if rendered_article_content == blank and legacy_article_content != blank
+    assign rendered_article_content = legacy_article_content
+  endif
+%}
 
 <div class="blog-post-content rte">
   <rte-formatter>
-    {{ article.content }}
+    {{ rendered_article_content }}
   </rte-formatter>
 </div>
 

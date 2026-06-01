@@ -8,6 +8,53 @@
 
 {% javascript %}
   const url = new URL(window.location.href);
+  const legacyTagFilter = url.searchParams.get('filter.p.tag');
+  const tagCollectionHandles = new Set([
+    '68-79-bus',
+    '80-83-air-cooled-vanagon',
+    '82-84-diesel-vanagon',
+    '83-85-19l-vanagon',
+    '86-92-21l-vanagon',
+    '92-96-25l-eurovan',
+    '97-03-28l-eurovan',
+    'accessories',
+    'air-intake',
+    'body-electrical',
+    'body-mechanical-trim',
+    'brakes',
+    'camper-parts',
+    'climate-control',
+    'clutch',
+    'coolant-system',
+    'drive-belts',
+    'drive-shaft',
+    'electrical-items',
+    'engine-conversion-parts',
+    'engine-electrical',
+    'engine-parts',
+    'exhaust-parts',
+    'featured-items',
+    'fuel-delivery',
+    'fuel-injection',
+    'suspension-and-steering',
+    'tires',
+    'tools',
+    'tools-and-hardware',
+    'transmission-drivetrain',
+    'tune-up-parts',
+    'wheels',
+  ]);
+
+  if (
+    legacyTagFilter &&
+    tagCollectionHandles.has(legacyTagFilter) &&
+    url.pathname === '{{ routes.all_products_collection_url }}'
+  ) {
+    url.searchParams.delete('filter.p.tag');
+    url.pathname = `${url.pathname}/${legacyTagFilter}`;
+    window.location.replace(url.toString());
+  }
+
   if (url.hash) {
     document.addEventListener(
       'DOMContentLoaded',

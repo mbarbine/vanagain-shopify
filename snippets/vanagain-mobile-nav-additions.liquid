@@ -13,7 +13,43 @@
     assign menu_titles = menu_titles | append: normalized_title | append: '|'
   endfor
   assign animation_index = animation_start | default: linklist.links.size
+  assign catalog_url = routes.all_products_collection_url
+  assign search_url = routes.search_url
+  assign privacy_url = '/policies/privacy-policy'
+  assign terms_url = '/policies/terms-of-service'
+
+  if shop.privacy_policy != blank
+    assign privacy_url = shop.privacy_policy.url
+  endif
+
+  if shop.terms_of_service != blank
+    assign terms_url = shop.terms_of_service.url
+  endif
 %}
+
+{% unless menu_titles contains '|parts|' %}
+  {% assign animation_index = animation_index | plus: 1 %}
+  <li class="menu-drawer__list-item menu-drawer__list-item--deep menu-drawer__list-item--divider" style="--menu-drawer-animation-index: {{ animation_index }};">
+    <details>
+      <summary class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset">
+        <span class="menu-drawer__menu-item-text wrap-text">Parts</span>
+        <span class="svg-wrapper icon-plus">{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+      </summary>
+      <ul class="menu-drawer__menu menu-drawer__menu--childlist details-content" role="list" tabindex="-1">
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">In-stock Parts</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}"><span class="menu-drawer__menu-item-text wrap-text">All Products</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}/86-92-21l-vanagon?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">86-92 Vanagon</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}/83-85-19l-vanagon?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">83-85 Vanagon</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}/68-79-bus?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">68-79 Bus</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}/92-96-25l-eurovan?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">Eurovan</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}/coolant-system?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">Coolant System</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}/engine-parts?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">Engine Parts</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ catalog_url }}/brakes?filter.v.availability=1"><span class="menu-drawer__menu-item-text wrap-text">Brakes</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ search_url }}?type=product&options%5Bprefix%5D=last"><span class="menu-drawer__menu-item-text wrap-text">Search by Part or SKU</span></a></li>
+      </ul>
+    </details>
+  </li>
+{% endunless %}
 
 {% unless menu_titles contains '|support|' %}
   {% assign animation_index = animation_index | plus: 1 %}
@@ -66,7 +102,8 @@
         <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/seo"><span class="menu-drawer__menu-item-text wrap-text">SEO Reference</span></a></li>
         <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/aeo"><span class="menu-drawer__menu-item-text wrap-text">AEO Reference</span></a></li>
         <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/geo"><span class="menu-drawer__menu-item-text wrap-text">GEO Reference</span></a></li>
-        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/privacy-terms"><span class="menu-drawer__menu-item-text wrap-text">Privacy &amp; Terms</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ privacy_url }}"><span class="menu-drawer__menu-item-text wrap-text">Privacy Policy</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ terms_url }}"><span class="menu-drawer__menu-item-text wrap-text">Terms of Service</span></a></li>
       </ul>
     </details>
   </li>

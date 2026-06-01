@@ -234,6 +234,9 @@ for (const requiredPath of [
   assert(fs.existsSync(absolute(requiredPath)), `${requiredPath} is missing`);
 }
 
+const themeLayoutText = readText("layout/theme.liquid");
+assert(themeLayoutText.includes("template-{{ request.page_type"), "Theme body does not emit request.page_type template classes");
+
 for (const relPath of [
   ...walkJsonFiles("templates"),
   ...walkJsonFiles("sections"),
@@ -250,6 +253,21 @@ assert(!indexText.includes("AI-powered 24/7"), "Homepage still contains the unve
 assert(indexText.includes("/collections/all"), "Homepage does not link to /collections/all");
 assert(indexText.includes("/collections"), "Homepage does not link to /collections");
 
+const desktopNavText = readText("snippets/vanagain-desktop-nav-additions.liquid");
+const mobileNavText = readText("snippets/vanagain-mobile-nav-additions.liquid");
+assert(desktopNavText.includes(">Parts<"), "Desktop navigation does not include the Parts menu");
+assert(mobileNavText.includes(">Parts<"), "Mobile navigation does not include the Parts menu");
+assert(!desktopNavText.includes("/pages/privacy-terms"), "Desktop navigation still links to missing privacy-terms page");
+assert(!mobileNavText.includes("/pages/privacy-terms"), "Mobile navigation still links to missing privacy-terms page");
+
+const catalogFiltersText = readText("snippets/vanagain-catalog-filters.liquid");
+assert(!catalogFiltersText.includes(">Uncategorized<"), "Catalog filter still exposes the zero-count Uncategorized part type");
+assert(catalogFiltersText.includes("Search parts"), "Catalog filter search label is not parts-specific");
+assert(!/<strong>\s*\d/.test(catalogFiltersText), "Catalog filter still renders hardcoded numeric counts");
+assert(catalogFiltersText.includes("View in-stock catalog"), "Catalog filter primary CTA is too generic");
+assert(mobileNavText.includes("Coolant System"), "Mobile Parts navigation does not include system shortcuts");
+assert(!catalogFiltersText.includes("filter.p.tag="), "Catalog filter links still use unreliable native tag query filters");
+
 const productTemplateText = readText("templates/product.json");
 assert(
   productTemplateText.includes("{{ closest.product.description }}"),
@@ -258,9 +276,21 @@ assert(
 
 const blogTemplateText = readText("templates/blog.json");
 assert(blogTemplateText.includes('"type": "main-blog"'), "Blog template does not use the main-blog section");
+const blogHeaderText = readText("sections/vanagain-blog-header.liquid");
+assert(blogHeaderText.includes("is-active"), "Blog header does not mark active blog filters");
 
 const articleTemplateText = readText("templates/article.json");
 assert(articleTemplateText.includes('"type": "_blog-post-content"'), "Article template does not render article content");
+const blogPostContentText = readText("blocks/_blog-post-content.liquid");
+const legacyArticleFallbackText = readText("snippets/vanagain-legacy-article-fallback.liquid");
+assert(
+  blogPostContentText.includes("vanagain-legacy-article-fallback"),
+  "Article content block does not render the legacy fallback for blank Shopify article bodies",
+);
+assert(
+  legacyArticleFallbackText.includes("the-truth-about-coolant-and-the-vanagon-cooling-system"),
+  "Legacy blog fallback is missing the coolant article reported empty on the live storefront",
+);
 
 assertIco("assets/favicon.ico");
 assertPngDimensions("assets/favicon-16x16.png", 16, 16);

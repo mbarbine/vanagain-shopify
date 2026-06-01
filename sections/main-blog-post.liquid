@@ -1,7 +1,7 @@
 
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<div class="section color-{{ section.settings.color_scheme }}">
+<div class="section color-{{ section.settings.color_scheme }} vanagain-article">
   <div
     class="
       spacing-style
@@ -9,12 +9,14 @@
       layout-panel-flex--column
       section-content-wrapper
       mobile-column
+      vanagain-article__inner
     "
     style="
       {% render 'layout-panel-style', settings: section.settings %}
       {% render 'spacing-style', settings: section.settings %}
     "
   >
+    <a class="vanagain-article__back-link" href="{{ blog.url | default: '/blogs/news' }}">Back to Journal</a>
     <header>
       {%- content_for 'block', id: 'blog-post-title', type: 'text' %}
       {%- content_for 'block', id: 'blog-post-details', type: '_blog-post-info-text' %}

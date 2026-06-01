@@ -1,6 +1,16 @@
 
 {% liquid
   assign current_year = 'now' | date: '%Y'
+  assign privacy_url = '/policies/privacy-policy'
+  assign terms_url = '/policies/terms-of-service'
+
+  if shop.privacy_policy != blank
+    assign privacy_url = shop.privacy_policy.url
+  endif
+
+  if shop.terms_of_service != blank
+    assign terms_url = shop.terms_of_service.url
+  endif
 %}
 
 <div class="vanagain-footer">
@@ -44,7 +54,7 @@
           <a class="vanagain-footer__link" href="{{ routes.search_url }}">Search Parts</a>
           <a class="vanagain-footer__link" href="{{ routes.cart_url }}">Cart</a>
           <a class="vanagain-footer__link" href="{{ routes.all_products_collection_url }}?filter.v.availability=1">In Stock</a>
-          <a class="vanagain-footer__link" href="{{ routes.all_products_collection_url }}?filter.p.tag=Featured%20Items&filter.v.availability=1">Featured Items</a>
+          <a class="vanagain-footer__link" href="{{ routes.all_products_collection_url }}/featured-items?filter.v.availability=1">Featured Items</a>
         </div>
       </div>
 
@@ -78,7 +88,8 @@
           <a class="vanagain-footer__link" href="/pages/seo">SEO Reference</a>
           <a class="vanagain-footer__link" href="/pages/aeo">AEO Reference</a>
           <a class="vanagain-footer__link" href="/pages/geo">GEO Reference</a>
-          <a class="vanagain-footer__link" href="/pages/privacy-terms">Privacy &amp; Terms</a>
+          <a class="vanagain-footer__link" href="{{ privacy_url }}">Privacy Policy</a>
+          <a class="vanagain-footer__link" href="{{ terms_url }}">Terms of Service</a>
         </div>
       </div>
 
@@ -148,7 +159,7 @@
         {% if shop.terms_of_service != blank %}
           <a href="{{ shop.terms_of_service.url }}">Terms of Service</a>
         {% else %}
-          <a href="/pages/privacy-terms">Privacy &amp; Terms</a>
+          <a href="{{ terms_url }}">Terms of Service</a>
         {% endif %}
         {% if shop.shipping_policy != blank %}
           <a href="{{ shop.shipping_policy.url }}">Shipping</a>
