@@ -16,14 +16,9 @@
   assign catalog_url = routes.all_products_collection_url
   assign search_url = routes.search_url
   assign privacy_url = '/policies/privacy-policy'
-  assign terms_url = '/policies/terms-of-service'
 
   if shop.privacy_policy != blank
     assign privacy_url = shop.privacy_policy.url
-  endif
-
-  if shop.terms_of_service != blank
-    assign terms_url = shop.terms_of_service.url
   endif
 %}
 
@@ -103,7 +98,11 @@
         <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/aeo"><span class="menu-drawer__menu-item-text wrap-text">AEO Reference</span></a></li>
         <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/geo"><span class="menu-drawer__menu-item-text wrap-text">GEO Reference</span></a></li>
         <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ privacy_url }}"><span class="menu-drawer__menu-item-text wrap-text">Privacy Policy</span></a></li>
-        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ terms_url }}"><span class="menu-drawer__menu-item-text wrap-text">Terms of Service</span></a></li>
+        {% if shop.terms_of_service != blank %}
+          <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{{ shop.terms_of_service.url }}"><span class="menu-drawer__menu-item-text wrap-text">Terms of Service</span></a></li>
+        {% else %}
+          <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/faq"><span class="menu-drawer__menu-item-text wrap-text">Ordering Terms</span></a></li>
+        {% endif %}
       </ul>
     </details>
   </li>

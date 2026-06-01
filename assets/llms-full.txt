@@ -52,7 +52,7 @@ A discount parts source for VWs specializing in Vanagons, Eurovans, and VW buses
 - FAQ: /pages/faq
 - VW Accessories: /pages/vw-accessories
 - Privacy Policy: /policies/privacy-policy
-- Terms of Service: /policies/terms-of-service
+- Ordering Terms: /pages/faq
 - Testimonials: /pages/testimonials
 - Submit Testimonial: /pages/submit-testimonial
 - Support: /pages/support

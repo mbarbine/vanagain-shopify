@@ -83,8 +83,63 @@
     url.hash === '#ResultsList' ||
     url.pathname.startsWith('/collections/all/') ||
     url.searchParams.has('filter.v.availability') ||
+    url.searchParams.has('view') ||
     url.searchParams.has('sort_by') ||
     url.searchParams.has('filter.p.tag');
+
+  document.addEventListener(
+    'DOMContentLoaded',
+    () => {
+      const toolbar = document.querySelector('[data-vanagain-catalog-toolbar]');
+      if (!toolbar) return;
+
+      const toolbarUrl = new URL(window.location.href);
+      const viewParam = toolbarUrl.searchParams.get('view') || toolbar.dataset.currentView || 'grid-24';
+      const [initialLayout = 'grid', initialPageSize = '24'] = viewParam.split('-');
+      const pageSizeSelect = toolbar.querySelector('[data-vanagain-page-size-select]');
+      const sortSelect = toolbar.querySelector('[data-vanagain-sort-select]');
+      const layoutLinks = toolbar.querySelectorAll('[data-vanagain-layout-link]');
+
+      const navigateCatalog = (layout, pageSize, sortBy) => {
+        const nextUrl = new URL(window.location.href);
+        nextUrl.searchParams.set('view', `${layout}-${pageSize}`);
+        nextUrl.searchParams.delete('page');
+        if (sortBy) {
+          nextUrl.searchParams.set('sort_by', sortBy);
+        }
+        nextUrl.hash = 'ResultsList';
+        window.location.assign(nextUrl.toString());
+      };
+
+      layoutLinks.forEach((link) => {
+        const layout = link.dataset.layout || initialLayout;
+        const isActive = layout === initialLayout;
+        link.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const pageSize = pageSizeSelect?.value || initialPageSize;
+          const sortBy = sortSelect?.value || toolbarUrl.searchParams.get('sort_by');
+          navigateCatalog(layout, pageSize, sortBy);
+        });
+      });
+
+      if (pageSizeSelect) {
+        pageSizeSelect.value = initialPageSize;
+        pageSizeSelect.addEventListener('change', () => {
+          const sortBy = sortSelect?.value || toolbarUrl.searchParams.get('sort_by');
+          navigateCatalog(initialLayout, pageSizeSelect.value, sortBy);
+        });
+      }
+
+      if (sortSelect) {
+        sortSelect.addEventListener('change', () => {
+          const pageSize = pageSizeSelect?.value || initialPageSize;
+          navigateCatalog(initialLayout, pageSize, sortSelect.value);
+        });
+      }
+    },
+    { once: true }
+  );
 
   if (shouldFocusResults) {
     document.addEventListener(
@@ -137,6 +192,7 @@
       if collection.handle == 'all'
         assign is_vanagain_all_catalog = true
       endif
+      assign vanagain_catalog_layout = section.settings.vanagain_catalog_layout | default: 'grid'
     %}
 
     {% if is_vanagain_all_catalog %}
@@ -164,7 +220,7 @@
     {% endif %}
 
     {% if is_vanagain_all_catalog %}
-      <div class="vanagain-collection-results">
+      <div class="vanagain-collection-results vanagain-collection-results--{{ vanagain_catalog_layout }}">
     {% endif %}
 
     {% assign products_per_page = 24 %}
@@ -175,21 +231,50 @@
 
     {% paginate collection.products by products_per_page %}
       {% if is_vanagain_all_catalog %}
-        <div class="vanagain-results-toolbar">
-          <p>Showing {{ collection.products.size }} of {{ collection.products_count }} products</p>
+        {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+        {% assign current_view = vanagain_catalog_layout | append: '-' | append: products_per_page %}
+        <div class="vanagain-results-toolbar" data-vanagain-catalog-toolbar data-current-view="{{ current_view }}">
+          <p>
+            <strong>Showing {{ collection.products.size }} of {{ collection.products_count }}</strong>
+            <span>products</span>
+          </p>
           <div class="vanagain-results-toolbar__controls">
-            <form class="vanagain-results-toolbar__sort" method="get">
-              <label for="vanagain-sort-by">Sort</label>
-              <select id="vanagain-sort-by" name="sort_by" onchange="this.form.submit()">
-                {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+            <div class="vanagain-results-toolbar__layout" aria-label="Product layout">
+              <a
+                href="{{ collection.url }}?view=grid-{{ products_per_page }}#ResultsList"
+                data-vanagain-layout-link
+                data-layout="grid"
+                {% if vanagain_catalog_layout == 'grid' %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}
+              >
+                Grid
+              </a>
+              <a
+                href="{{ collection.url }}?view=compact-{{ products_per_page }}#ResultsList"
+                data-vanagain-layout-link
+                data-layout="compact"
+                {% if vanagain_catalog_layout == 'compact' %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}
+              >
+                Compact
+              </a>
+            </div>
+            <label class="vanagain-results-toolbar__select">
+              <span>Show</span>
+              <select data-vanagain-page-size-select aria-label="Products per page">
+                <option value="24" {% if products_per_page == 24 %}selected{% endif %}>24</option>
+                <option value="48" {% if products_per_page == 48 %}selected{% endif %}>48</option>
+                <option value="100" {% if products_per_page == 100 %}selected{% endif %}>100</option>
+              </select>
+            </label>
+            <label class="vanagain-results-toolbar__select">
+              <span>Sort</span>
+              <select data-vanagain-sort-select aria-label="Sort products">
                 {% for option in collection.sort_options %}
                   <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>
                     {{ option.name }}
                   </option>
                 {% endfor %}
               </select>
-            </form>
-            <span class="vanagain-results-toolbar__page-size">{{ products_per_page }} per page</span>
+            </label>
           </div>
         </div>
       {% endif %}
@@ -232,6 +317,22 @@
     "templates": ["collection"]
   },
   "settings": [
+    {
+      "type": "select",
+      "id": "vanagain_catalog_layout",
+      "label": "VanAgain catalog layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "compact",
+          "label": "Compact"
+        }
+      ],
+      "default": "grid"
+    },
     {
       "type": "select",
       "id": "layout_type",
@@ -300,7 +401,7 @@
       "id": "products_per_page",
       "label": "t:settings.products_per_page",
       "min": 8,
-      "max": 36,
+      "max": 100,
       "step": 4,
       "default": 24,
       "visible_if": "{{ section.settings.enable_infinite_scroll == false }}"
