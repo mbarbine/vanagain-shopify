@@ -163,6 +163,10 @@
       %}
     {% endif %}
 
+    {% if is_vanagain_all_catalog %}
+      <div class="vanagain-collection-results">
+    {% endif %}
+
     {% assign products_per_page = 24 %}
 
     {% if section.settings.enable_infinite_scroll == false %}
@@ -214,6 +218,10 @@
         enable_infinite_scroll: section.settings.enable_infinite_scroll
       %}
     {% endpaginate %}
+
+    {% if is_vanagain_all_catalog %}
+      </div>
+    {% endif %}
   </div>
 </results-list>
 
