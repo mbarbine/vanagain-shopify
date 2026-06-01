@@ -268,6 +268,12 @@ assert(overridesText.includes(".vanagain-contact-info"), "Contact information se
 assert(overridesText.includes(".vanagain-collections-hub__vehicle-grid"), "Collections hub styles are missing");
 assert(overridesText.includes("body.template-policy .shopify-policy__body table"), "Policy table formatting styles are missing");
 assert(
+  overridesText.includes("body.template-policy .shopify-policy__body .rte .grid") &&
+    overridesText.includes(".sm\\:grid-cols-3") &&
+    overridesText.includes("overflow-wrap: normal"),
+  "Policy pages do not repair migrated Tailwind-style shipping content",
+);
+assert(
   overridesText.includes(".vanagain-collection-results--compact .product-grid") &&
     overridesText.includes("repeat(auto-fill, minmax(10.75rem, 1fr))"),
   "Compact product layout does not support dense desktop/tablet grids",
