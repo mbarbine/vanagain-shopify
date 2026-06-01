@@ -1,0 +1,2 @@
+id,enable_shipping,display_mode,enable_flat_rate,flat_rate_title,flat_rate_cost,enable_free_shipping,free_shipping_title,free_shipping_cost,enable_ups,ups_user_id,ups_password,ups_access_key,ups_account_number,enable_usps,usps_user_id,created_at,updated_at
+1,1,1,0,,,0,Free Shipping,,1,A5r548,Virgiltb2,3D19D10B4604939C,A5r548,1,150WOOTH2143,2018-04-11 06:56:42,2018-04-11 11:56:42

@@ -1,0 +1,28 @@
+id,name,slug,parent,description,image,page_title,page_keyword,page_description,created_at,updated_at
+1,Accessories,accessories,0,,assets/uploads/accessories.png,Accessories,Accessories,Accessories,2018-01-15 11:11:14,2018-01-15 11:11:14
+2,Air Intake,air-intake,0,,assets/uploads/air-intake.png,Air Intake,Air Intake,Air Intake,2018-01-15 11:11:49,2018-01-15 11:11:49
+3,Body - Electrical,body-electrical,0,,assets/uploads/body-electrical.png,Body - Electrical,Body - Electrical,Body - Electrical,2018-01-15 11:12:32,2021-12-23 12:15:36
+4,Body Mechanical & Trim,body-mechanical-trim,0,,assets/uploads/body-mechanical-trim.png,Body Mechanical & Trim,Body Mechanical & Trim,Body Mechanical & Trim,2018-01-15 11:12:52,2018-01-15 11:12:52
+5,Brakes,brakes,0,,assets/uploads/brakes.png,Brakes,Brakes,Brakes,2018-01-15 11:13:17,2018-01-15 11:13:17
+6,Camper Parts,camper-parts,0,,assets/uploads/camper-parts.png,Camper Parts,Camper Parts,Camper Parts,2018-01-15 11:13:33,2018-01-15 11:13:33
+7,Climate Control,climate-control,0,,assets/uploads/climate-control.png,Climate Control,Climate Control,Climate Control,2018-01-15 11:13:53,2018-01-18 12:48:58
+8,Clutch,clutch,0,,assets/uploads/clutch.png,Clutch,Clutch,Clutch,2018-01-15 11:14:07,2018-01-15 11:14:07
+9,Coolant System,coolant-system,0,,assets/uploads/coolant-system.png,Coolant System,Coolant System,Coolant System,2018-01-15 11:14:39,2018-01-15 11:14:39
+10,Drive Belts,drive-belts,0,,assets/uploads/drive-belts.png,Drive Belts,Drive Belts,Drive Belts,2018-01-15 11:15:01,2018-01-15 11:15:01
+11,Drive Shaft,drive-shaft,0,,assets/uploads/drive-shaft.png,Drive Shaft,Drive Shaft,Drive Shaft,2018-01-15 11:15:17,2018-01-15 11:15:17
+12,Electrical Items,electrical-items,0,,assets/uploads/electrical-items.png,Electrical Items,Electrical Items,Electrical Items,2018-01-15 11:15:41,2018-01-15 11:15:41
+13,Engine Conversion Parts,engine-conversion-parts,0,,assets/uploads/engine-conversion-parts.png,Engine Conversion Parts,Engine Conversion Parts,Engine Conversion Parts,2018-01-15 11:15:56,2018-01-15 11:15:56
+14,Engine Electrical,engine-electrical,0,,assets/uploads/engine-electrical.png,Engine Electrical,Engine Electrical,Engine Electrical,2018-01-15 11:16:15,2018-01-15 11:16:15
+15,Engine Parts,engine-parts,0,,assets/uploads/engine-parts.png,Engine Parts,Engine Parts,Engine Parts,2018-01-15 11:16:33,2018-01-15 11:16:33
+16,Exhaust Parts,exhaust-parts,0,,assets/uploads/exhaust-parts.png,Exhaust Parts,Exhaust Parts,Exhaust Parts,2018-01-15 11:16:53,2018-01-15 11:16:53
+17,Featured Items,featured-items,0,,assets/uploads/featured-items.png,Featured Items,Featured Items,Featured Items,2018-01-15 11:17:11,2018-01-15 11:17:11
+18,Fuel Delivery,fuel-delivery,0,,assets/uploads/fuel-delivery.png,Fuel Delivery,Fuel Delivery,Fuel Delivery,2018-01-15 11:17:28,2018-01-15 11:17:28
+19,Fuel Injection,fuel-injection,0,,assets/uploads/fuel-injection.png,Fuel Injection,Fuel Injection,Fuel Injection,2018-01-15 11:17:51,2018-01-15 11:17:51
+20,Suspension and Steering,suspension-and-steering,0,,assets/uploads/suspension-and-steering.png,Suspension and Steering,Suspension and Steering,Suspension and Steering,2018-01-15 11:18:13,2018-01-15 11:18:13
+21,Tires,tires,0,,assets/uploads/tires.png,Tires,Tires,Tires,2018-01-15 11:18:29,2018-01-15 11:18:29
+22,Tools,tools,0,,assets/uploads/tools.png,Tools,Tools,Tools,2018-01-15 11:18:47,2018-01-17 17:18:54
+23,Tools and Hardware,tools-and-hardware,0,,assets/uploads/tools-and-hardware.png,Tools and Hardware,Tools and Hardware,Tools and Hardware,2018-01-15 11:19:17,2018-01-15 11:19:17
+24,Transmission & Drivetrain,transmission-drivetrain,0,,assets/uploads/transmission-drivetrain.png,Transmission & Drivetrain,Transmission & Drivetrain,Transmission & Drivetrain,2018-01-15 11:19:44,2018-01-17 17:21:11
+25,Tune-up Parts,tune-up-parts,0,,assets/uploads/tune-up-parts.png,Tune-up Parts,,Tune-up Parts,2018-01-15 11:20:13,2018-01-15 11:20:13
+26,Wheels,wheels,0,,assets/uploads/wheels.png,Wheels,Wheels,Wheels,2018-01-15 11:20:31,2018-01-15 11:20:31
+27,Uncategorized,uncategorized,0,,assets/uploads/uncategorized.png,,,,2018-04-09 10:43:19,2018-04-09 11:49:31

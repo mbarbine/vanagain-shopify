@@ -1,0 +1,21 @@
+id,title,description,visibility,created_at,updated_at
+1,Ordering Terms,"<ul>
+	<li>Product descriptions are as accurate as possible but if you have questions about a certain application, <a href=""https://www.vanagain.com/contact/"" title=""Contact"">please contact Van-Again</a> before ordering.</li>
+	<li>Product availability is not guaranteed. Please call to ascertain an item&rsquo;s availability before ordering online if you must have the item right away.</li>
+	<li>Before your credit card information is processed through Vanagain.com, it is encrypted using SSL for your safety.</li>
+	<li>If you prefer to phone or fax in your order, you can do so by using the <a href=""https://www.vanagain.com/contact/"" title=""Contact"">Vanagain telephone numbers listed on the contact page</a>.</li>
+</ul>
+
+<h4>All orders will be processed in the following way:</h4>
+
+<p>You place your order online. Your credit card is charged.&nbsp;&nbsp;If we have everything in stock, your order will ship that day if it is before 2pm Eastern Time.&nbsp; If there are some items that are backordered or no longer available, we will contact you via email as soon as possible.&nbsp; You can tell us if you want to wait for the backordered parts, remove them from the order, or cancel the order.&nbsp; We will&nbsp;either adjust the order (partial refund) or cancel the order (full refund) if you direct us to.&nbsp;&nbsp;</p>",1,2018-08-29 20:12:04,2018-08-29 21:12:04
+2,Shipping,"<ul>
+	<li>Shipping terms: we ship via UPS or USPS (Post Office).&nbsp; Orders placed before 2pm Eastern Daylight Time will be processed that day, orders placed later in the day or over the weekend will not be processed until the next business day.&nbsp; Business days are Monday-Friday.</li>
+	<li>Buyer assumes responsibility for custom fees and taxes incurred during international shipping.</li>
+</ul>",1,2018-08-29 20:14:52,2018-08-29 21:14:52
+3,Returns and refunds,<ul><li>Return terms:&nbsp;Returns are subject to approval.&nbsp;Please contact us via email or phone before returning anything.&nbsp;You must get an email approving your return before you send it back.&nbsp;Leaving a voicemail that you are returning something isn’t going to work. Returns must be uninstalled and in the original box.&nbsp;Returns must be begun within 30 days of the invoice date.&nbsp;No returns after 30 days. No returns on electrical items unless never installed.&nbsp;Returns may be subject to a 20% restocking fee.</li><li>Refund terms:&nbsp; Refunds can only be given back to the original credit card that was used.&nbsp;Or refunds can be in the form of store credit if you wish just let us know.</li></ul>,1,2018-04-18 12:05:21,2018-04-18 12:05:21
+4,Quick Bulk Ordering,"<p><a href=""http://69.195.124.187/~vanagain/bulk-order/"" title=""Bulk Order Form"">For your convenience there is a bulk ordering form</a> where you can quickly add items to your cart. This assumes you know part names and numbers.</p>",2,2018-08-29 20:12:41,2018-08-29 21:12:41
+5,Wishlists,"<p>Customers may create wishlists for their private use by clicking the Heart Icon at the bottom of all part descriptions.&nbsp; You must be a registered user and be logged in to create a wishlist.&nbsp; A wishlist is a way for you to save a list of parts you are interested in, so that you can quickly and easily purchase those parts in the future.</p>
+
+<p>When items are purchased from a wishlist, they will be removed from the list.</p>",1,2018-08-29 20:17:35,2018-08-29 21:17:35
+6,Reward Points,"<p>For every $1 in purchases at Vanagain.com (excluding shipping and tax), 1 reward point will be awarded. For example, a $200 subtotal will earn the customer 200 points. Points can be redeemed in trade towards future purchases at a rate of 5%. That means 200 points could be used for a $10 discount on an order subtotal. Vanagain reward points cannot be redeemed for cash, traded, or transferred.</p>",1,2021-12-23 17:14:44,2021-12-23 12:14:44
