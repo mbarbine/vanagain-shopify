@@ -378,6 +378,11 @@ const footerText = readText("sections/footer.liquid");
 assert(!/paypal/i.test(footerText), "Footer still includes PayPal donation copy or links");
 assert(footerText.includes("vanagain-footer__topline"), "Footer is missing the fitment-help support row");
 assert(!footerText.includes('assign terms_url = \'/policies/terms-of-service\''), "Footer still falls back to the missing Terms policy route");
+assert(
+  overridesText.includes(".vanagain-footer__bottom-inner") &&
+    overridesText.includes("padding-inline: 0.6rem"),
+  "Mobile footer gutter is not aligned with the all-products catalog gutter",
+);
 
 const contactTemplateText = readText("templates/page.contact.json");
 assert(contactTemplateText.includes('"type": "vanagain-contact"'), "Contact page does not use the custom VanAgain contact section");

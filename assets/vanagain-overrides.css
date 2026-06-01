@@ -688,6 +688,23 @@ header-component {
     font-size: 0.875rem;
   }
 
+  .vanagain-footer__main,
+  .vanagain-footer__bottom-inner {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: none;
+    padding-inline: 0.6rem;
+  }
+
+  .vanagain-footer__bottom {
+    padding-inline: 0;
+  }
+
+  .vanagain-footer__main > *,
+  .vanagain-footer__bottom-inner > * {
+    grid-column: 1;
+  }
+
   .vanagain-footer__main {
     padding-top: 2rem;
     padding-bottom: 2rem;
