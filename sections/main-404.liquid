@@ -1,5 +1,46 @@
 
+{% liquid
+  assign fallback_handle = ''
+  case request.path
+    when '/pages/about'
+      assign fallback_handle = 'about'
+    when '/pages/faq'
+      assign fallback_handle = 'faq'
+    when '/pages/testimonials'
+      assign fallback_handle = 'testimonials'
+    when '/pages/submit-testimonial'
+      assign fallback_handle = 'submit-testimonial'
+    when '/policies/terms-of-service'
+      assign fallback_handle = 'terms'
+  endcase
+%}
 
+{% if fallback_handle != blank %}
+  <div class="section-background color-{{ section.settings.color_scheme }}"></div>
+  <section class="section section--page-width color-{{ section.settings.color_scheme }} vanagain-missing-page-fallback">
+    {% if fallback_handle == 'testimonials' %}
+      {% render 'vanagain-testimonials-list' %}
+    {% else %}
+      <div class="vanagain-missing-page-fallback__header">
+        {% case fallback_handle %}
+          {% when 'about' %}
+            <p class="vanagain-missing-page-fallback__eyebrow">Company</p>
+            <h1>About VanAgain</h1>
+          {% when 'faq' %}
+            <p class="vanagain-missing-page-fallback__eyebrow">Help</p>
+            <h1>Frequently Asked Questions</h1>
+          {% when 'submit-testimonial' %}
+            <p class="vanagain-missing-page-fallback__eyebrow">Customer Feedback</p>
+            <h1>Submit Testimonial</h1>
+          {% when 'terms' %}
+            <p class="vanagain-missing-page-fallback__eyebrow">Policy</p>
+            <h1>Terms of Service</h1>
+        {% endcase %}
+      </div>
+      {% render 'vanagain-page-fallback', handle: fallback_handle %}
+    {% endif %}
+  </section>
+{% else %}
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
   class="
@@ -25,6 +66,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 {% schema %}
 {
