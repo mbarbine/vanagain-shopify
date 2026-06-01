@@ -44,24 +44,74 @@
     'tune-up-parts',
     'wheels',
   ]);
+  const tagCollectionAliases = new Map([
+    ['68-79-bus', '68-79-bus'],
+    ['80-83-air-cooled-vanagon', '80-83-air-cooled-vanagon'],
+    ['82-84-diesel-vanagon', '82-84-diesel-vanagon'],
+    ['83-85-19l-vanagon', '83-85-19l-vanagon'],
+    ['86-92-21l-vanagon', '86-92-21l-vanagon'],
+    ['92-96-25l-eurovan', '92-96-25l-eurovan'],
+    ['97-03-28l-eurovan', '97-03-28l-eurovan'],
+    ['body-mechanical-and-trim', 'body-mechanical-trim'],
+    ['transmission-and-drivetrain', 'transmission-drivetrain'],
+  ]);
+  const normalizeLegacyTagFilter = (value) =>
+    value
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, 'and')
+      .replace(/\./g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+  const canonicalLegacyTagFilter = legacyTagFilter
+    ? tagCollectionHandles.has(legacyTagFilter)
+      ? legacyTagFilter
+      : tagCollectionAliases.get(normalizeLegacyTagFilter(legacyTagFilter))
+    : undefined;
 
   if (
-    legacyTagFilter &&
-    tagCollectionHandles.has(legacyTagFilter) &&
-    url.pathname === '{{ routes.all_products_collection_url }}'
+    canonicalLegacyTagFilter &&
+    url.pathname === '/collections/all'
   ) {
     url.searchParams.delete('filter.p.tag');
-    url.pathname = `${url.pathname}/${legacyTagFilter}`;
+    url.pathname = `${url.pathname}/${canonicalLegacyTagFilter}`;
+    url.hash = 'ResultsList';
     window.location.replace(url.toString());
   }
 
-  if (url.hash) {
+  const shouldFocusResults =
+    url.hash === '#ResultsList' ||
+    url.pathname.startsWith('/collections/all/') ||
+    url.searchParams.has('filter.v.availability') ||
+    url.searchParams.has('sort_by') ||
+    url.searchParams.has('filter.p.tag');
+
+  if (shouldFocusResults) {
     document.addEventListener(
       'DOMContentLoaded',
       () => {
-        const card = document.getElementById(url.hash.slice(1));
-        if (card) {
-          card.scrollIntoView({ behavior: 'instant' });
+        const catalogPanel = document.querySelector('.vanagain-catalog-filter-panel');
+        const resultsList = document.getElementById('ResultsList');
+
+        if (catalogPanel) {
+          catalogPanel.open = false;
+        }
+
+        if (resultsList) {
+          requestAnimationFrame(() => {
+            resultsList.scrollIntoView({ behavior: 'instant', block: 'start' });
+          });
+        }
+      },
+      { once: true }
+    );
+  } else if (url.hash) {
+    document.addEventListener(
+      'DOMContentLoaded',
+      () => {
+        const target = document.getElementById(url.hash.slice(1));
+        if (target) {
+          target.scrollIntoView({ behavior: 'instant' });
         }
       },
       { once: true }
@@ -91,7 +141,18 @@
 
     {% if is_vanagain_all_catalog %}
       <aside class="facets-block-wrapper facets-block-wrapper--vertical vanagain-catalog-filters-wrapper">
-        {% render 'vanagain-catalog-filters', catalog_url: collection.url %}
+        <details class="vanagain-catalog-filter-panel">
+          <summary class="vanagain-catalog-filter-panel__summary">
+            <span>
+              <strong>Find parts</strong>
+              <small>Choose a vehicle year range, model, or part system.</small>
+            </span>
+            <span class="vanagain-catalog-filter-panel__action">Filter catalog</span>
+          </summary>
+          <div class="vanagain-catalog-filter-panel__body">
+            {% render 'vanagain-catalog-filters', catalog_url: collection.url %}
+          </div>
+        </details>
       </aside>
     {% else %}
       {% content_for 'block',
