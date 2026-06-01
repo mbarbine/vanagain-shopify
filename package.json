@@ -1,0 +1,11 @@
+{
+  "name": "vanagain-shopify-theme",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate-shopify-artifacts.mjs",
+    "theme:check": "shopify theme check --path . --fail-level error",
+    "theme:push:live": "shopify theme push --store van-again.myshopify.com --theme 162678505728 --path . --allow-live --strict",
+    "theme:pull:live": "shopify theme pull --store van-again.myshopify.com --theme 162678505728 --path ."
+  }
+}

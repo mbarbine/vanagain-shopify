@@ -1798,6 +1798,17 @@ body.template-collection .product-grid__item .product-card {
     transform 0.18s ease;
 }
 
+@supports (content-visibility: auto) {
+  body.template-collection .product-grid__item {
+    content-visibility: auto;
+    contain-intrinsic-size: 22rem;
+  }
+
+  body.template-collection .vanagain-collection-results--compact .product-grid__item {
+    contain-intrinsic-size: 18rem;
+  }
+}
+
 body.template-collection .product-grid__item .product-card:hover,
 body.template-collection .product-grid__item .product-card:focus-within {
   border-color: rgba(26, 107, 138, 0.32);
@@ -2070,6 +2081,65 @@ body.template-collection .vanagain-card-actions__button:focus-visible {
 body.template-collection .vanagain-card-actions__button:disabled {
   background: #cbd5e1;
   cursor: not-allowed;
+}
+
+body.template-product .product-media-container--zoomable.product-media-container--image {
+  cursor: zoom-in;
+}
+
+body.template-product .product-media-container__zoom-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(224, 231, 236, 0.9);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--vanagain-primary);
+  box-shadow: var(--vanagain-shadow-soft);
+  opacity: 1;
+}
+
+body.template-product .product-media-container__zoom-button:hover,
+body.template-product .product-media-container__zoom-button:focus-visible {
+  background: var(--vanagain-primary);
+  color: #ffffff;
+}
+
+.vanagain-social-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.25rem;
+}
+
+.vanagain-social-share span {
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.vanagain-social-share a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.32rem 0.64rem;
+  border: 1px solid var(--vanagain-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--vanagain-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.vanagain-social-share a:hover,
+.vanagain-social-share a:focus-visible {
+  border-color: rgba(26, 107, 138, 0.28);
+  background: #eaf3f8;
+  color: var(--vanagain-primary-dark);
 }
 
 body.template-collection .vanagain-product-badge--featured {

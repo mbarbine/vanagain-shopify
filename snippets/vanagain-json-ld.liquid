@@ -50,6 +50,21 @@
       "https://www.facebook.com/VanAgainInc/",
       "https://www.youtube.com/c/VanAgain",
       "https://instagram.com/vanagain"
+    ],
+    "areaServed": [
+      { "@type": "Country", "name": "United States" },
+      { "@type": "AdministrativeArea", "name": "U.S. territories" },
+      { "@type": "Country", "name": "Canada" },
+      { "@type": "Country", "name": "Mexico" },
+      { "@type": "Place", "name": "Europe" },
+      { "@type": "Country", "name": "Australia" }
+    ],
+    "knowsAbout": [
+      "Volkswagen Vanagon parts",
+      "VW Bus parts",
+      "Volkswagen Eurovan parts",
+      "classic VW van cooling systems",
+      "classic VW van fitment support"
     ]
   }
 </script>
@@ -60,6 +75,7 @@
     "@type": "WebSite",
     "name": {{ shop.name | json }},
     "url": {{ request.origin | json }},
+    "inLanguage": {{ request.locale.iso_code | default: 'en-US' | json }},
     "potentialAction": {
       "@type": "SearchAction",
       "target": {{ jsonld_search_target | json }},

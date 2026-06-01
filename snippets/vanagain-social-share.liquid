@@ -1,0 +1,51 @@
+{%- doc -%}
+  Product and content share links with canonical URLs and share-image support.
+
+  @param {object} [product] - Product context when rendered on product pages.
+{%- enddoc -%}
+
+{%- liquid
+  assign share_title = page_title | default: shop.name
+  assign share_url = canonical_url | default: request.origin
+  assign share_image = ''
+
+  if product != blank
+    assign share_title = product.title
+    assign share_url = product.url | prepend: request.origin
+    if product.featured_image
+      assign share_image = product.featured_image | image_url: width: 1200 | prepend: 'https:'
+    endif
+  endif
+
+  assign encoded_share_url = share_url | url_encode
+  assign encoded_share_title = share_title | url_encode
+  assign encoded_share_image = share_image | url_encode
+-%}
+
+<div class="vanagain-social-share" aria-label="Share this page">
+  <span>Share</span>
+  <a
+    href="https://www.facebook.com/sharer/sharer.php?u={{ encoded_share_url }}"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Facebook
+  </a>
+  <a
+    href="https://twitter.com/intent/tweet?url={{ encoded_share_url }}&text={{ encoded_share_title }}"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    X
+  </a>
+  {%- if share_image != blank -%}
+    <a
+      href="https://www.pinterest.com/pin/create/button/?url={{ encoded_share_url }}&media={{ encoded_share_image }}&description={{ encoded_share_title }}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Pinterest
+    </a>
+  {%- endif -%}
+  <a href="mailto:?subject={{ encoded_share_title }}&body={{ encoded_share_url }}">Email</a>
+</div>

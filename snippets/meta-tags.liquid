@@ -27,9 +27,21 @@
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_locale = request.locale.iso_code | default: 'en-US' | replace: '-', '_'
+  assign og_image = page_image
+  assign og_image_width = page_image.width
+  assign og_image_height = page_image.height
+  assign og_image_alt = og_title
+  assign fallback_social_image = 'vanagain-hero.jpg' | asset_url | prepend: 'https:'
 
   if request.page_type == 'product'
     assign og_type = 'product'
+    if product.featured_image
+      assign og_image = product.featured_image
+      assign og_image_width = product.featured_image.width
+      assign og_image_height = product.featured_image.height
+      assign og_image_alt = product.title
+    endif
   elsif request.page_type == 'article'
     assign og_type = 'article'
   elsif request.page_type == 'password'
@@ -57,24 +69,45 @@
   property="og:description"
   content="{{ og_description | escape }}"
 >
+<meta
+  property="og:locale"
+  content="{{ og_locale }}"
+>
 
-{%- if page_image -%}
+{%- for language in localization.available_languages -%}
+  {%- assign alternate_locale = language.iso_code | replace: '-', '_' -%}
+  {%- unless alternate_locale == og_locale -%}
+    <meta property="og:locale:alternate" content="{{ alternate_locale | escape }}">
+  {%- endunless -%}
+{%- endfor -%}
+
+{%- if og_image -%}
   <meta
     property="og:image"
-    content="http:{{ page_image | image_url }}"
+    content="https:{{ og_image | image_url: width: 1200 }}"
   >
   <meta
     property="og:image:secure_url"
-    content="https:{{ page_image | image_url }}"
+    content="https:{{ og_image | image_url: width: 1200 }}"
   >
   <meta
     property="og:image:width"
-    content="{{ page_image.width }}"
+    content="{{ og_image_width }}"
   >
   <meta
     property="og:image:height"
-    content="{{ page_image.height }}"
+    content="{{ og_image_height }}"
   >
+  <meta
+    property="og:image:alt"
+    content="{{ og_image_alt | escape }}"
+  >
+{%- else -%}
+  <meta property="og:image" content="{{ fallback_social_image }}">
+  <meta property="og:image:secure_url" content="{{ fallback_social_image }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ shop.name | escape }} VW van parts catalog">
 {%- endif -%}
 
 {%- if request.page_type == 'product' -%}
@@ -105,6 +138,31 @@
 <meta
   name="twitter:description"
   content="{{ og_description | escape }}"
+>
+<meta
+  name="twitter:url"
+  content="{{ og_url }}"
+>
+{%- if og_image -%}
+  <meta
+    name="twitter:image"
+    content="https:{{ og_image | image_url: width: 1200 }}"
+  >
+  <meta
+    name="twitter:image:alt"
+    content="{{ og_image_alt | escape }}"
+  >
+{%- else -%}
+  <meta name="twitter:image" content="{{ fallback_social_image }}">
+  <meta name="twitter:image:alt" content="{{ shop.name | escape }} VW van parts catalog">
+{%- endif -%}
+<meta
+  name="shopify-market"
+  content="{{ localization.country.iso_code | default: 'US' }} {{ localization.country.currency.iso_code | default: cart.currency.iso_code | default: shop.currency }}"
+>
+<meta
+  name="shipping-destinations"
+  content="United States, U.S. territories, Canada, Mexico, Europe, Australia, and other destinations supported at checkout"
 >
 
 <title>
