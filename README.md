@@ -14,6 +14,8 @@ Shopify theme for VanAgain, a specialty ecommerce store for VW Vanagon, VW Bus, 
 - Storefront layout, navigation, breadcrumbs, JSON-LD, Open Graph/Twitter metadata, footer, product cards, and collection browsing UX.
 - Custom catalog shortcuts for vehicle year ranges and part systems.
 - Fallback content for migrated pages and legacy blog articles when Shopify content records are blank.
+- Blog category chips, repair-topic shortcuts, and fallback thumbnails for migrated posts without Shopify featured images.
+- Full-width mobile product browsing with grid/compact layouts and 24/48/100 item views.
 - Local validation tests for theme structure, migrated content, required snippets, social metadata, and key user-facing routes.
 
 ## Repository Layout
@@ -35,6 +37,12 @@ npm run theme:check
 ```
 
 The validation script uses only Node built-ins. Shopify commands require the Shopify CLI and a valid store/theme session.
+
+## Performance Notes
+
+- `layout/theme.liquid` preconnects to Shopify CDN and font assets.
+- Blog listing images are lazy-loaded and only product/detail hero media should use high fetch priority.
+- The all-products catalog uses `content-visibility` for long product grids and a collapsed filter panel so buyers reach products quickly.
 
 ## Publishing
 

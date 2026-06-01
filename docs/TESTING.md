@@ -17,7 +17,9 @@ git diff --check
 - Home, collection, product, article, page, contact, footer, breadcrumbs, JSON-LD, and social metadata hooks are present.
 - Collection filter links use tag collection paths and jump to `#ResultsList`.
 - The all-parts catalog has grid/compact layout controls and 24/48/100 page-size views.
+- Mobile all-parts browsing uses the full available viewport and keeps product cards to two dense columns where practical.
 - The `/collections` page uses the VanAgain collections hub.
+- Blog cards have category controls and fallback thumbnails when Shopify article images are missing.
 - Product CSV rows have primary handles, titles, descriptions, and expected content.
 - Blog CSV rows have titles, slugs, and descriptions.
 - Testimonials render from the migrated testimonial snippet without duplicating generic page blocks.
@@ -36,7 +38,8 @@ Run these after every live push:
 7. Testimonials: only the polished testimonial grid appears.
 8. Footer: no PayPal donation block and no broken Terms link when Shopify policy is missing.
 9. Blog fallback: legacy article bodies render when Shopify article content is blank.
-10. Mobile: header, filters, product cards, buttons, forms, and footer have no clipped text.
+10. Blog index: category chips, repair-topic links, thumbnails, and fallback thumbnails render on desktop and mobile.
+11. Mobile: header, filters, product cards, buttons, forms, and footer have no clipped text or horizontal dead space.
 
 ## Recommended Future Automated Tests
 

@@ -1,0 +1,19 @@
+{%- doc -%}
+  Renders a consistent blog thumbnail when a migrated Shopify article has no featured image.
+
+  @param {object} article - The article object
+{%- enddoc -%}
+
+<div class="blog-post-card__image-container vanagain-blog-card-fallback-image">
+  <a href="{{ article.url }}" aria-label="{{ article.title | escape }}">
+    <img
+      src="{{ 'vanagain-hero.jpg' | asset_url }}"
+      alt=""
+      loading="lazy"
+      width="1200"
+      height="630"
+      class="blog-post-card__image"
+    >
+    <span>VanAgain Journal</span>
+  </a>
+</div>

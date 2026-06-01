@@ -33,6 +33,13 @@
       {% endfor %}
     {% endif %}
   </nav>
+
+  <nav class="vanagain-blog-header__topics" aria-label="Shop parts by repair topic">
+    <a href="{{ routes.all_products_collection_url }}/coolant-system?filter.v.availability=1#ResultsList">Coolant</a>
+    <a href="{{ routes.all_products_collection_url }}/engine-electrical?filter.v.availability=1#ResultsList">Engine Electrical</a>
+    <a href="{{ routes.all_products_collection_url }}/fuel-injection?filter.v.availability=1#ResultsList">Fuel Injection</a>
+    <a href="{{ routes.all_products_collection_url }}/transmission-drivetrain?filter.v.availability=1#ResultsList">Drivetrain</a>
+  </nav>
 </section>
 
 {% stylesheet %}
@@ -95,7 +102,15 @@
     gap: 0.55rem;
   }
 
-  .vanagain-blog-header__category {
+  .vanagain-blog-header__topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .vanagain-blog-header__category,
+  .vanagain-blog-header__topics a {
     border: 1px solid #d7e4eb;
     border-radius: 999px;
     padding: 0.42rem 0.72rem;
@@ -106,7 +121,8 @@
   }
 
   .vanagain-blog-header__category:hover,
-  .vanagain-blog-header__category.is-active {
+  .vanagain-blog-header__category.is-active,
+  .vanagain-blog-header__topics a:hover {
     color: #ffffff;
     background: #1a6b8a;
     border-color: #1a6b8a;
@@ -115,6 +131,26 @@
   @media screen and (max-width: 749px) {
     .vanagain-blog-header__intro h1 {
       font-size: 2rem;
+    }
+
+    .vanagain-blog-header__categories,
+    .vanagain-blog-header__topics {
+      flex-wrap: nowrap;
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .vanagain-blog-header__categories::-webkit-scrollbar,
+    .vanagain-blog-header__topics::-webkit-scrollbar {
+      display: none;
+    }
+
+    .vanagain-blog-header__category,
+    .vanagain-blog-header__topics a {
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
   }
 {% endstylesheet %}

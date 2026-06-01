@@ -248,6 +248,7 @@ for (const requiredPath of [
   "sections/vanagain-contact.liquid",
   "sections/vanagain-collections-hub.liquid",
   "snippets/vanagain-breadcrumbs.liquid",
+  "snippets/vanagain-blog-card-fallback-image.liquid",
   "snippets/vanagain-json-ld.liquid",
   "snippets/vanagain-page-fallback.liquid",
   "snippets/vanagain-testimonials-list.liquid",
@@ -257,6 +258,7 @@ for (const requiredPath of [
 
 const themeLayoutText = readText("layout/theme.liquid");
 assert(themeLayoutText.includes("template-{{ request.page_type"), "Theme body does not emit request.page_type template classes");
+assert(themeLayoutText.includes('rel="preconnect" href="https://cdn.shopify.com"'), "Theme layout does not preconnect to Shopify CDN");
 assert(themeLayoutText.includes("vanagain-json-ld"), "Theme layout does not render VanAgain JSON-LD");
 assert(themeLayoutText.includes("vanagain-breadcrumbs"), "Theme layout does not render breadcrumbs");
 
@@ -271,8 +273,9 @@ assert(
   "Compact product layout does not support dense desktop/tablet grids",
 );
 assert(
-  overridesText.includes(".section.product-grid-container.vanagain-all-catalog") &&
+    overridesText.includes(".section.product-grid-container.vanagain-all-catalog") &&
     overridesText.includes("width: min(100%, 96rem)") &&
+    overridesText.includes("overflow-x: clip") &&
     overridesText.includes("repeat(2, minmax(0, 1fr)) !important"),
   "Mobile all-products catalog is still not using the full available browsing width",
 );
@@ -411,6 +414,14 @@ const blogTemplateText = readText("templates/blog.json");
 assert(blogTemplateText.includes('"type": "main-blog"'), "Blog template does not use the main-blog section");
 const blogHeaderText = readText("sections/vanagain-blog-header.liquid");
 assert(blogHeaderText.includes("is-active"), "Blog header does not mark active blog filters");
+assert(blogHeaderText.includes("Shop parts by repair topic"), "Blog header does not expose repair-topic category shortcuts");
+const blogCardText = readText("blocks/_blog-post-card.liquid");
+const blogImageText = readText("blocks/_blog-post-image.liquid");
+const blogFallbackImageText = readText("snippets/vanagain-blog-card-fallback-image.liquid");
+assert(blogCardText.includes("vanagain-blog-card-fallback-image"), "Blog post cards do not render fallback thumbnails");
+assert(blogImageText.includes('loading="lazy"'), "Blog list images are not lazy-loaded");
+assert(blogImageText.includes('fetchpriority="auto"'), "Blog list images still use high fetch priority");
+assert(blogFallbackImageText.includes("vanagain-hero.jpg"), "Blog fallback thumbnail does not use a real VanAgain visual asset");
 
 const articleTemplateText = readText("templates/article.json");
 assert(articleTemplateText.includes('"type": "_blog-post-content"'), "Article template does not render article content");
