@@ -99,7 +99,7 @@
 
         if (resultsList) {
           requestAnimationFrame(() => {
-            resultsList.scrollIntoView({ behavior: 'instant', block: 'start' });
+            resultsList.scrollIntoView({ behavior: 'auto', block: 'start' });
           });
         }
       },
@@ -111,7 +111,7 @@
       () => {
         const target = document.getElementById(url.hash.slice(1));
         if (target) {
-          target.scrollIntoView({ behavior: 'instant' });
+          target.scrollIntoView({ behavior: 'auto' });
         }
       },
       { once: true }

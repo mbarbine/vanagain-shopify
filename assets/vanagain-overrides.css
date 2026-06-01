@@ -37,6 +37,46 @@ a {
   transition: color 0.2s ease, opacity 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
+.vanagain-breadcrumbs {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.85rem 1rem 0;
+  color: #64748b;
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+.vanagain-breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vanagain-breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.vanagain-breadcrumbs li + li::before {
+  content: '/';
+  margin-right: 0.45rem;
+  color: #9ca3af;
+}
+
+.vanagain-breadcrumbs a {
+  color: var(--vanagain-primary);
+  text-decoration: none;
+}
+
+.vanagain-breadcrumbs [aria-current='page'] {
+  color: #334155;
+}
+
 .section--page-width {
   max-width: 80rem;
 }
@@ -1277,6 +1317,7 @@ body.template-policy .shopify-policy__body {
   color: #1f2937;
   font-size: 1rem;
   line-height: 1.75;
+  overflow-x: auto;
   overflow-wrap: anywhere;
 }
 
@@ -1290,13 +1331,14 @@ body.template-policy .shopify-policy__body > *:first-child {
 
 body.template-policy .shopify-policy__body table {
   width: 100%;
-  min-width: 100%;
+  min-width: 48rem;
   margin: 1.5rem 0;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 body.template-policy .shopify-policy__body :is(th, td) {
+  min-width: 10rem;
   padding: 0.75rem;
   border: 1px solid var(--vanagain-border);
   vertical-align: top;
@@ -1843,6 +1885,265 @@ body.template-collection .shopify-section-group-main .rte p {
   color: var(--vanagain-muted-foreground);
 }
 
+.vanagain-page-fallback,
+.vanagain-missing-page-fallback {
+  width: min(100% - 2rem, 80rem);
+  margin-inline: auto;
+}
+
+.vanagain-missing-page-fallback {
+  padding-block: 3rem 5rem;
+}
+
+.vanagain-missing-page-fallback__header,
+.vanagain-page-fallback {
+  max-width: 58rem;
+}
+
+.vanagain-missing-page-fallback__eyebrow,
+.vanagain-contact-page__eyebrow {
+  margin: 0 0 0.6rem;
+  color: var(--vanagain-primary);
+  font-size: 0.82rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vanagain-missing-page-fallback h1,
+.vanagain-contact-page h1 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(2.3rem, 6vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.vanagain-page-fallback {
+  display: grid;
+  gap: 1rem;
+  color: #1f2937;
+  font-size: 1.03rem;
+  line-height: 1.75;
+}
+
+.vanagain-page-fallback__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.vanagain-page-fallback--faq {
+  gap: 0.75rem;
+}
+
+.vanagain-page-fallback--faq details {
+  border: 1px solid var(--vanagain-border);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: var(--vanagain-shadow-soft);
+}
+
+.vanagain-page-fallback--faq summary {
+  padding: 1rem 1.1rem;
+  color: #0f172a;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.vanagain-page-fallback--faq details > div {
+  padding: 0 1.1rem 1rem;
+  color: #334155;
+}
+
+.vanagain-testimonial-form,
+.vanagain-contact-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.vanagain-testimonial-form label,
+.vanagain-contact-form label {
+  display: grid;
+  gap: 0.4rem;
+  color: #334155;
+  font-weight: 750;
+}
+
+.vanagain-testimonial-form input,
+.vanagain-testimonial-form textarea,
+.vanagain-contact-form input,
+.vanagain-contact-form textarea {
+  width: 100%;
+  min-height: 3.15rem;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--vanagain-border);
+  border-radius: 8px;
+  font: inherit;
+}
+
+.vanagain-testimonial-form textarea,
+.vanagain-contact-form textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+
+.vanagain-testimonial-form__grid,
+.vanagain-contact-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.vanagain-form-status {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  background: #f0fdf4;
+  color: #166534;
+  font-weight: 750;
+}
+
+.vanagain-form-status--error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.vanagain-contact-page {
+  padding: 3.5rem 1rem 5rem;
+  background:
+    linear-gradient(to right, rgba(26, 107, 138, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 107, 138, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at top right, rgba(93, 173, 226, 0.16), transparent 36%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
+  background-size: 4rem 4rem, 4rem 4rem, auto, auto;
+}
+
+.vanagain-contact-page__inner {
+  display: grid;
+  gap: 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.vanagain-contact-page__hero {
+  max-width: 54rem;
+}
+
+.vanagain-contact-page__hero p:last-child {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: #475569;
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.vanagain-contact-info {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.vanagain-contact-card {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  min-height: 8.75rem;
+  padding: 1rem;
+  border: 1px solid rgba(224, 231, 236, 0.94);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  text-decoration: none;
+  box-shadow: var(--vanagain-shadow-soft);
+}
+
+.vanagain-contact-card:hover {
+  border-color: rgba(26, 107, 138, 0.34);
+}
+
+.vanagain-contact-card span {
+  color: var(--vanagain-primary);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.vanagain-contact-card strong {
+  color: #1e293b;
+  font-size: 0.98rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.vanagain-contact-page__body {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.vanagain-contact-panel,
+.vanagain-contact-form-card {
+  border: 1px solid var(--vanagain-border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--vanagain-shadow);
+}
+
+.vanagain-contact-panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.vanagain-contact-panel h2,
+.vanagain-contact-form-card h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.vanagain-contact-panel p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.65;
+}
+
+.vanagain-contact-panel__links,
+.vanagain-contact-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.vanagain-contact-panel__links a,
+.vanagain-contact-social a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.1rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: #eaf3f8;
+  color: var(--vanagain-primary);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.vanagain-contact-form-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
 .section-password {
   background:
     radial-gradient(circle at top, rgba(93, 173, 226, 0.18), transparent 38%),
@@ -1903,11 +2204,28 @@ body.template-collection .shopify-section-group-main .rte p {
   }
 }
 
+@media screen and (max-width: 989px) {
+  .vanagain-contact-info {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .vanagain-contact-page__body {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media screen and (max-width: 749px) {
+  .vanagain-breadcrumbs {
+    padding-top: 0.65rem;
+    font-size: 0.82rem;
+  }
+
   .ui-test-product-list .section-resource-list__header .rte > h3,
   .vanagain-browser__header h2,
   .vanagain-home-section__header h2,
-  .vanagain-newsletter-cta h2 {
+  .vanagain-newsletter-cta h2,
+  .vanagain-contact-panel h2,
+  .vanagain-contact-form-card h2 {
     font-size: 1.6rem;
   }
 
@@ -1957,6 +2275,10 @@ body.template-collection .shopify-section-group-main .rte p {
     font-size: 2rem;
   }
 
+  body.template-policy .shopify-policy__body table {
+    min-width: 42rem;
+  }
+
   body.template-collection .collection-wrapper:has(.facets--vertical) {
     grid-template-columns: 1fr;
   }
@@ -1987,6 +2309,20 @@ body.template-collection .shopify-section-group-main .rte p {
 
   body.template-collection .vanagain-card-actions__button {
     width: 100%;
+  }
+
+  .vanagain-testimonial-form__grid,
+  .vanagain-contact-form__grid,
+  .vanagain-contact-info {
+    grid-template-columns: 1fr;
+  }
+
+  .vanagain-contact-page {
+    padding-block: 2.5rem 3.5rem;
+  }
+
+  .vanagain-contact-card {
+    min-height: auto;
   }
 
   .vanagain-home-section__header {
