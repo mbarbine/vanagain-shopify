@@ -1671,10 +1671,10 @@ body.template-collection .vanagain-results-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  min-height: 3rem;
+  gap: 0.8rem;
+  min-height: 2.75rem;
   margin-bottom: 1rem;
-  padding: 0.75rem;
+  padding: 0.65rem 0.7rem;
   border: 1px solid rgba(224, 231, 236, 0.86);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.95);
@@ -1684,7 +1684,8 @@ body.template-collection .vanagain-results-toolbar {
 
 body.template-collection .vanagain-results-toolbar p {
   margin: 0;
-  font-size: 0.95rem;
+  color: #334155;
+  font-size: 0.88rem;
   font-weight: 700;
 }
 
@@ -1696,7 +1697,7 @@ body.template-collection .vanagain-results-toolbar p span {
 body.template-collection .vanagain-results-toolbar__controls {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
   gap: 0.55rem;
 }
@@ -1704,8 +1705,8 @@ body.template-collection .vanagain-results-toolbar__controls {
 body.template-collection .vanagain-results-toolbar__layout {
   display: flex;
   align-items: center;
-  min-height: 2.45rem;
-  padding: 0.2rem;
+  min-height: 2.25rem;
+  padding: 0.16rem;
   border: 1px solid var(--vanagain-border);
   border-radius: 999px;
   background: #f8fbfd;
@@ -1715,8 +1716,8 @@ body.template-collection .vanagain-results-toolbar__layout a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2rem;
-  padding: 0.35rem 0.7rem;
+  min-height: 1.9rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 999px;
   color: #475569;
   font-size: 0.84rem;
@@ -1743,22 +1744,12 @@ body.template-collection .vanagain-results-toolbar__select span {
 }
 
 body.template-collection .vanagain-results-toolbar__select select {
-  min-height: 2.5rem;
-  padding: 0.35rem 2rem 0.35rem 0.65rem;
+  min-height: 2.25rem;
+  padding: 0.3rem 2rem 0.3rem 0.6rem;
   border: 1px solid var(--vanagain-border);
   border-radius: 6px;
   background: #ffffff;
   color: #111827;
-}
-
-body.template-collection .vanagain-collection-results--compact .product-grid {
-  grid-template-columns: 1fr;
-}
-
-@media screen and (min-width: 900px) {
-  body.template-collection .vanagain-collection-results--compact .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 body.template-collection .vanagain-all-catalog .facets-block-wrapper:not(.vanagain-catalog-filters-wrapper),
@@ -1814,6 +1805,37 @@ body.template-collection .product-grid__item .product-card:focus-within {
   transform: translateY(-2px);
 }
 
+body.template-collection .vanagain-collection-results--grid .product-grid,
+body.template-collection .vanagain-collection-results--compact .product-grid {
+  width: 100%;
+  margin-inline: 0;
+}
+
+body.template-collection .vanagain-collection-results--compact .product-grid {
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+
+@media screen and (min-width: 750px) {
+  body.template-collection .vanagain-collection-results--grid .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)) !important;
+  }
+
+  body.template-collection .vanagain-collection-results--compact .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr)) !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  body.template-collection .vanagain-collection-results--grid .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)) !important;
+  }
+
+  body.template-collection .vanagain-collection-results--compact .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(10.75rem, 1fr)) !important;
+  }
+}
+
 body.template-collection .product-grid__item .product-card__content {
   height: 100%;
 }
@@ -1839,26 +1861,31 @@ body.template-collection .product-grid__item .product-card .product-media__image
   height: 100%;
   padding: 0.85rem;
   object-fit: contain;
+  transition: transform 0.24s ease;
+}
+
+body.template-collection .product-grid__item .product-card:hover .product-media__image,
+body.template-collection .product-grid__item .product-card:focus-within .product-media__image {
+  transform: scale(1.045);
+}
+
+body.template-collection .product-grid__item .quick-add {
+  display: none !important;
 }
 
 body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card__content {
-  display: grid !important;
-  grid-template-columns: 7.25rem minmax(0, 1fr);
-  align-items: start;
-  gap: 0.38rem 0.75rem;
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.34rem;
   min-height: 100%;
-  padding: 0.65rem;
+  padding: 0.58rem;
 }
 
 body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card .card-gallery,
 body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card product-card-gallery {
-  grid-column: 1;
-  grid-row: 1 / span 6;
   aspect-ratio: 1;
-}
-
-body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card__content > :not(.card-gallery):not(product-card-gallery) {
-  grid-column: 2;
+  width: 100%;
 }
 
 body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card .product-media__image {
@@ -1872,7 +1899,7 @@ body.template-collection .product-grid__item .product-card__content {
 
 body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card__info,
 body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card__content {
-  padding: 0.65rem;
+  padding: 0.58rem;
 }
 
 body.template-collection .product-grid__item .product-card__content > div {
@@ -1911,10 +1938,16 @@ body.template-collection .vanagain-card-fitments {
 }
 
 body.template-collection .vanagain-collection-results--compact .vanagain-card-fitments {
-  max-height: 3.2rem;
+  max-height: 2.6rem;
   min-height: 0;
   margin: 0;
   overflow: hidden;
+}
+
+body.template-collection .vanagain-collection-results--compact .vanagain-card-fitments__badge {
+  min-height: 1.25rem;
+  padding: 0.13rem 0.36rem;
+  font-size: 0.66rem;
 }
 
 body.template-collection .vanagain-card-fitments__badge {
@@ -1962,8 +1995,11 @@ body.template-collection .vanagain-card-actions {
 }
 
 body.template-collection .vanagain-collection-results--compact .vanagain-card-actions {
-  margin-top: 0.15rem;
-  padding-top: 0;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.15rem;
 }
 
 body.template-collection .vanagain-card-actions__stock {
@@ -2010,6 +2046,19 @@ body.template-collection .vanagain-card-actions__button {
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+}
+
+body.template-collection .vanagain-collection-results--compact .vanagain-card-actions__stock,
+body.template-collection .vanagain-collection-results--compact .vanagain-card-actions__button {
+  justify-content: center;
+  width: 100%;
+}
+
+body.template-collection .vanagain-collection-results--compact .vanagain-card-actions__button {
+  min-width: 0;
+  min-height: 2.05rem;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.76rem;
 }
 
 body.template-collection .vanagain-card-actions__button:hover,

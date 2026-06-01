@@ -1,0 +1,114 @@
+{% liquid
+  assign catalog_url = routes.all_products_collection_url | default: '/collections/all'
+  assign vehicle_items = '68-79 Bus|68-79-bus|Bay Window bus parts and service items||80-83 Air Cooled Vanagon|80-83-air-cooled-vanagon|Air-cooled Vanagon engine and chassis parts||82-84 Diesel Vanagon|82-84-diesel-vanagon|Diesel Vanagon service and repair parts||83-85 1.9L Vanagon|83-85-19l-vanagon|Early waterboxer Vanagon parts||86-92 2.1L Vanagon|86-92-21l-vanagon|Late Vanagon cooling, engine, and driveline parts||92-96 2.5L Eurovan|92-96-25l-eurovan|Early Eurovan parts and accessories||97-03 2.8L Eurovan|97-03-28l-eurovan|VR6 Eurovan service and repair parts' | split: '||'
+  assign system_items = 'Accessories|accessories||Air Intake|air-intake||Body - Electrical|body-electrical||Body Mechanical & Trim|body-mechanical-trim||Brakes|brakes||Camper Parts|camper-parts||Climate Control|climate-control||Clutch|clutch||Coolant System|coolant-system||Drive Belts|drive-belts||Drive Shaft|drive-shaft||Electrical Items|electrical-items||Engine Conversion Parts|engine-conversion-parts||Engine Electrical|engine-electrical||Engine Parts|engine-parts||Exhaust Parts|exhaust-parts||Fuel Delivery|fuel-delivery||Fuel Injection|fuel-injection||Suspension and Steering|suspension-and-steering||Tools and Hardware|tools-and-hardware||Transmission & Drivetrain|transmission-drivetrain||Tune-up Parts|tune-up-parts||Wheels|wheels' | split: '||'
+%}
+
+<section class="vanagain-collections-hub">
+  <div class="vanagain-collections-hub__inner">
+    <div class="vanagain-collections-hub__hero">
+      <div>
+        <p class="vanagain-collections-hub__eyebrow">Parts collections</p>
+        <h1>Find the right VanAgain parts faster</h1>
+        <p>
+          Browse by vehicle year range, part system, availability, or keyword. Each shortcut opens the same stocked catalog view used across the parts navigation.
+        </p>
+      </div>
+      <form class="vanagain-collections-hub__search" action="{{ routes.search_url }}" method="get">
+        <label for="vanagain-collections-search">Search the catalog</label>
+        <input type="hidden" name="type" value="product">
+        <input type="hidden" name="options[prefix]" value="last">
+        <input id="vanagain-collections-search" type="search" name="q" placeholder="Part name, SKU, or keyword">
+        <button type="submit">Search parts</button>
+      </form>
+    </div>
+
+    <div class="vanagain-collections-hub__actions" aria-label="Catalog shortcuts">
+      <a href="{{ catalog_url }}?filter.v.availability=1#ResultsList">Shop in-stock parts</a>
+      <a href="{{ catalog_url }}?view=compact-48&filter.v.availability=1#ResultsList">Compact catalog</a>
+      <a href="{{ catalog_url }}">All products</a>
+    </div>
+
+    <div class="vanagain-collections-hub__feature-grid">
+      <a class="vanagain-collections-hub__feature" href="{{ catalog_url }}?filter.v.availability=1#ResultsList">
+        <span>In stock</span>
+        <strong>Start with parts ready to ship.</strong>
+      </a>
+      <a class="vanagain-collections-hub__feature" href="{{ catalog_url }}/coolant-system?filter.v.availability=1#ResultsList">
+        <span>Repair systems</span>
+        <strong>Jump directly into major service categories.</strong>
+      </a>
+      <a class="vanagain-collections-hub__feature" href="{{ catalog_url }}/68-79-bus?filter.v.availability=1#ResultsList">
+        <span>Vehicle fitment</span>
+        <strong>Shop by Bus, Vanagon, or Eurovan range.</strong>
+      </a>
+    </div>
+
+    <div class="vanagain-collections-hub__section">
+      <div class="vanagain-collections-hub__section-header">
+        <p>Vehicle type</p>
+        <h2>Shop by year range and model</h2>
+      </div>
+      <div class="vanagain-collections-hub__vehicle-grid">
+        {% for item in vehicle_items %}
+          {% assign parts = item | split: '|' %}
+          {% assign title = parts[0] %}
+          {% assign handle = parts[1] %}
+          {% assign description = parts[2] %}
+          <a class="vanagain-collections-hub__vehicle-card" href="{{ catalog_url }}/{{ handle }}?filter.v.availability=1#ResultsList">
+            <span>{{ title }}</span>
+            <small>{{ description }}</small>
+            <strong>Shop</strong>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="vanagain-collections-hub__section">
+      <div class="vanagain-collections-hub__section-header">
+        <p>Part systems</p>
+        <h2>Browse common service categories</h2>
+      </div>
+      <div class="vanagain-collections-hub__system-grid">
+        {% for item in system_items %}
+          {% assign parts = item | split: '|' %}
+          {% assign title = parts[0] %}
+          {% assign handle = parts[1] %}
+          <a href="{{ catalog_url }}/{{ handle }}?filter.v.availability=1#ResultsList">
+            <span>{{ title }}</span>
+            <strong>Shop</strong>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="vanagain-collections-hub__section">
+      <div class="vanagain-collections-hub__section-header">
+        <p>Collections</p>
+        <h2>More ways to browse</h2>
+      </div>
+      <div class="vanagain-collections-hub__live-grid">
+        {% for collection in collections limit: 12 %}
+          {% unless collection.handle == 'all' %}
+            <a class="vanagain-collections-hub__collection-card" href="{{ collection.url }}">
+              {% if collection.featured_image %}
+                {{ collection.featured_image | image_url: width: 520 | image_tag: loading: 'lazy', widths: '260, 390, 520', sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 100vw', alt: collection.title }}
+              {% else %}
+                <span class="vanagain-collections-hub__collection-placeholder">{{ collection.title | slice: 0, 1 }}</span>
+              {% endif %}
+              <span>{{ collection.title }}</span>
+              <small>{{ collection.products_count }} products</small>
+            </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VanAgain collections hub",
+  "settings": []
+}
+{% endschema %}
