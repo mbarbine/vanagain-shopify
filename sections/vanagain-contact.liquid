@@ -1,0 +1,102 @@
+<section class="vanagain-contact-page">
+  <div class="vanagain-contact-page__inner">
+    <header class="vanagain-contact-page__hero">
+      <p class="vanagain-contact-page__eyebrow">Fitment help and order support</p>
+      <h1>Contact VanAgain</h1>
+      <p>
+        Talk with Ken Wilford and the VanAgain team for VW Bus, Vanagon, and Eurovan parts support.
+      </p>
+    </header>
+
+    <div class="vanagain-contact-info" aria-label="VanAgain contact information">
+      <a class="vanagain-contact-card" href="tel:+18882508139">
+        <span>Phone</span>
+        <strong>888-250-8139</strong>
+      </a>
+      <a class="vanagain-contact-card" href="https://wa.me/18563274936" target="_blank" rel="noopener noreferrer">
+        <span>WhatsApp</span>
+        <strong>+1 856-327-4936</strong>
+      </a>
+      <a class="vanagain-contact-card" href="mailto:support@vanagain.com">
+        <span>Email</span>
+        <strong>support@vanagain.com</strong>
+      </a>
+      <div class="vanagain-contact-card">
+        <span>Weekday Hours</span>
+        <strong>Mon-Fri 9am-6pm EST</strong>
+      </div>
+      <div class="vanagain-contact-card">
+        <span>Saturday Hours</span>
+        <strong>Sat 10am-4pm EST</strong>
+      </div>
+      <div class="vanagain-contact-card">
+        <span>Location</span>
+        <strong>Lakeshore Drive, Millville, NJ 08332 USA</strong>
+      </div>
+    </div>
+
+    <div class="vanagain-contact-page__body">
+      <aside class="vanagain-contact-panel">
+        <h2>Need the right part?</h2>
+        <p>
+          Send the year, model, engine, and the repair you are working on. Clear details help the team answer fitment questions faster.
+        </p>
+        <div class="vanagain-contact-panel__links">
+          <a href="{{ routes.all_products_collection_url }}?filter.v.availability=1#ResultsList">Shop in-stock parts</a>
+          <a href="/pages/faq">Read FAQs</a>
+          <a href="/pages/testimonials">Customer testimonials</a>
+        </div>
+        <div class="vanagain-contact-social" aria-label="Social links">
+          <a href="https://www.facebook.com/VanAgainInc/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.youtube.com/c/VanAgain" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://instagram.com/vanagain" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </aside>
+
+      <div class="vanagain-contact-form-card">
+        <h2>Send a message</h2>
+        {% form 'contact', class: 'vanagain-contact-form' %}
+          <input type="hidden" name="contact[subject]" value="VanAgain storefront contact request">
+
+          {% if form.posted_successfully? %}
+            <p class="vanagain-form-status">Thanks. Your message has been sent.</p>
+          {% endif %}
+          {% if form.errors %}
+            <div class="vanagain-form-status vanagain-form-status--error">{{ form.errors | default_errors }}</div>
+          {% endif %}
+
+          <div class="vanagain-contact-form__grid">
+            <label>
+              <span>Name</span>
+              <input type="text" name="contact[name]" autocomplete="name" required>
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="contact[email]" autocomplete="email" required>
+            </label>
+          </div>
+          <label>
+            <span>Phone</span>
+            <input type="tel" name="contact[phone]" autocomplete="tel">
+          </label>
+          <label>
+            <span>Vehicle</span>
+            <input type="text" name="contact[vehicle]" placeholder="Example: 1986 Vanagon 2.1L">
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="contact[body]" rows="7" required></textarea>
+          </label>
+          <button class="button" type="submit">Send message</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VanAgain contact",
+  "settings": []
+}
+{% endschema %}

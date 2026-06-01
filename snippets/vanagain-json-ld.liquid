@@ -29,6 +29,7 @@
       assign jsonld_description = page.content | strip_html | default: jsonld_description | truncate: 300
   endcase
 -%}
+{%- capture jsonld_search_target -%}{{ request.origin }}{{ routes.search_url }}?q={search_term_string}&type=product{%- endcapture -%}
 
 <script type="application/ld+json">
   {
@@ -61,7 +62,7 @@
     "url": {{ request.origin | json }},
     "potentialAction": {
       "@type": "SearchAction",
-      "target": {{ request.origin | append: routes.search_url | append: '?q={search_term_string}&type=product' | json }},
+      "target": {{ jsonld_search_target | json }},
       "query-input": "required name=search_term_string"
     }
   }
