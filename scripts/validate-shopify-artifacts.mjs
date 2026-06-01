@@ -231,6 +231,14 @@ for (const requiredPath of [
   "templates/blog.json",
   "templates/article.json",
   "templates/page.contact.json",
+  "package.json",
+  "README.md",
+  "docs/EDITING_AND_PUBLISHING.md",
+  "docs/TESTING.md",
+  "docs/ROADMAP.md",
+  "docs/CUTOVER_ISSUES.md",
+  "docs/ECOMMERCE_GROWTH_RECOMMENDATIONS.md",
+  "docs/INTERNATIONALIZATION.md",
   "templates/collection.grid-24.json",
   "templates/collection.grid-48.json",
   "templates/collection.grid-100.json",
@@ -263,6 +271,12 @@ assert(
   "Compact product layout does not support dense desktop/tablet grids",
 );
 assert(
+  overridesText.includes(".section.product-grid-container.vanagain-all-catalog") &&
+    overridesText.includes("width: min(100%, 96rem)") &&
+    overridesText.includes("repeat(2, minmax(0, 1fr)) !important"),
+  "Mobile all-products catalog is still not using the full available browsing width",
+);
+assert(
   overridesText.includes("body.template-collection .product-grid__item .quick-add") &&
     overridesText.includes("display: none !important"),
   "Collection product cards still expose the blank quick-add overlay",
@@ -270,6 +284,11 @@ assert(
 assert(
   overridesText.includes("transform: scale(1.045)"),
   "Collection product images do not have the restored hover zoom affordance",
+);
+assert(
+  overridesText.includes("body.template-product .product-media-container__zoom-button") &&
+    overridesText.includes(".vanagain-social-share"),
+  "Product page zoom/share UI styles are missing",
 );
 
 for (const relPath of [
@@ -340,7 +359,17 @@ for (const [templateName, layout, pageSize] of [
     collectionTemplate?.sections?.main?.settings?.products_per_page === pageSize,
     `${templateName} does not set ${pageSize} products per page`,
   );
+  assert(
+    collectionTemplate?.sections?.main?.settings?.product_grid_width === "full-width",
+    `${templateName} does not use the full-width product grid for mobile/tablet browsing`,
+  );
 }
+
+const baseCollectionTemplate = parseShopifyJson("templates/collection.json");
+assert(
+  baseCollectionTemplate?.sections?.main?.settings?.product_grid_width === "full-width",
+  "Base collection template does not use the full-width product grid",
+);
 
 const footerText = readText("sections/footer.liquid");
 assert(!/paypal/i.test(footerText), "Footer still includes PayPal donation copy or links");
@@ -369,6 +398,14 @@ assert(
   productTemplateText.includes("{{ closest.product.description }}"),
   "Product template does not render product.description",
 );
+assert(productTemplateText.includes("vanagain-social-share"), "Product template does not render social share links");
+const metaTagsText = readText("snippets/meta-tags.liquid");
+assert(metaTagsText.includes("twitter:image"), "Meta tags do not include Twitter share images");
+assert(metaTagsText.includes("og:locale"), "Meta tags do not include Open Graph locale data");
+assert(metaTagsText.includes("shipping-destinations"), "Meta tags do not describe primary shipping destinations");
+const jsonLdText = readText("snippets/vanagain-json-ld.liquid");
+assert(jsonLdText.includes("areaServed"), "Organization JSON-LD does not describe primary markets served");
+assert(jsonLdText.includes("knowsAbout"), "Organization JSON-LD does not describe VanAgain topical expertise");
 
 const blogTemplateText = readText("templates/blog.json");
 assert(blogTemplateText.includes('"type": "main-blog"'), "Blog template does not use the main-blog section");
