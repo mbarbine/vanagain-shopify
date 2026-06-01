@@ -1,0 +1,91 @@
+{%- liquid
+  assign fallback_handle = handle | default: ''
+-%}
+
+{%- case fallback_handle -%}
+  {%- when 'about' -%}
+    <div class="vanagain-page-fallback vanagain-page-fallback--about rte">
+      <p>VanAgain supplies VW van parts with a simple operating promise: offer the best quality parts available at reasonable prices, and back them with top notch customer service.</p>
+      <p>We are mechanics that specialize in VW vans. That experience helps us understand what parts you need to do the job from start to finish, and gives customers someone to call when they need fitment help.</p>
+      <div class="vanagain-page-fallback__actions">
+        <a class="button" href="{{ routes.all_products_collection_url }}?filter.v.availability=1#ResultsList">Shop All Parts</a>
+        <a class="button button-secondary" href="/pages/contact">Contact VanAgain</a>
+      </div>
+    </div>
+
+  {%- when 'faq' -%}
+    <div class="vanagain-page-fallback vanagain-page-fallback--faq rte">
+      <details open>
+        <summary>Ordering Terms</summary>
+        <div>
+          <p>Product descriptions are as accurate as possible, but customers should contact VanAgain before ordering when a fitment application is uncertain.</p>
+          <p>Orders placed online are charged through checkout. If every item is in stock, orders placed before 2pm Eastern time normally ship the same business day. If an item is backordered or unavailable, VanAgain contacts the customer with options to wait, remove the item, or cancel the order.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Shipping</summary>
+        <div>
+          <p>VanAgain ships by UPS or USPS. Orders placed after 2pm Eastern time or over the weekend are processed the next business day. International buyers are responsible for any customs fees and taxes.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Returns and refunds</summary>
+        <div>
+          <p>Returns require approval before anything is sent back. Returns must be uninstalled, in the original box, and started within 30 days of the invoice date. Electrical items are not returnable after installation.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Wishlists</summary>
+        <div>
+          <p>Registered customers can use wishlists to save parts for later. Purchased wishlist items are removed from the saved list.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Reward Points</summary>
+        <div>
+          <p>Eligible purchases earn reward points that can be redeemed toward future orders. Points cannot be redeemed for cash, traded, or transferred.</p>
+        </div>
+      </details>
+    </div>
+
+  {%- when 'submit-testimonial' -%}
+    <div class="vanagain-page-fallback vanagain-page-fallback--submit-testimonial rte">
+      <p>Share how VanAgain helped with your VW Bus, Vanagon, or Eurovan project.</p>
+      {% form 'contact', class: 'vanagain-testimonial-form' %}
+        <input type="hidden" name="contact[subject]" value="VanAgain testimonial submission">
+        <div class="vanagain-testimonial-form__grid">
+          <label>
+            <span>Name</span>
+            <input type="text" name="contact[name]" autocomplete="name" required>
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="contact[email]" autocomplete="email" required>
+          </label>
+        </div>
+        <label>
+          <span>Location</span>
+          <input type="text" name="contact[location]" autocomplete="address-level1">
+        </label>
+        <label>
+          <span>Testimonial</span>
+          <textarea name="contact[body]" rows="7" required></textarea>
+        </label>
+        <button class="button" type="submit">Submit Testimonial</button>
+        {% if form.posted_successfully? %}
+          <p class="vanagain-form-status">Thanks for sending your testimonial.</p>
+        {% endif %}
+        {% if form.errors %}
+          <div class="vanagain-form-status vanagain-form-status--error">{{ form.errors | default_errors }}</div>
+        {% endif %}
+      {% endform %}
+    </div>
+
+  {%- when 'terms' -%}
+    <div class="vanagain-page-fallback vanagain-page-fallback--terms rte">
+      <p>Product descriptions are as accurate as possible, but customers should contact VanAgain before ordering when a specific application is uncertain. Product availability is not guaranteed until the order is processed.</p>
+      <p>Orders are processed through Shopify checkout. If items are backordered or unavailable, VanAgain will contact the customer to confirm whether to wait, adjust the order, or cancel the order.</p>
+      <p>VanAgain is a privately owned company specializing in parts, accessories, sales, and service for Volkswagen vans. VanAgain is not affiliated with Volkswagen of America or Volkswagen AG. Vanagon, Bus, VW, Volkswagen, Syncro, and Eurovan are registered trademarks and should be considered as such throughout the site.</p>
+      <p>Use of the site and content is at the customer&apos;s own risk and must comply with applicable laws.</p>
+    </div>
+{%- endcase -%}

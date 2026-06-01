@@ -5,7 +5,11 @@
   </div>
 
   <div class="vanagain-faq__items rte">
-    {{ page.content }}
+    {% if page.content != blank %}
+      {{ page.content }}
+    {% else %}
+      {% render 'vanagain-page-fallback', handle: 'faq' %}
+    {% endif %}
   </div>
 
   <div class="vanagain-faq__cta">

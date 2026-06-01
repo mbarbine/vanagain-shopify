@@ -125,3 +125,45 @@
     content="{{ page_description | escape }}"
   >
 {% endif %}
+
+{%- liquid
+  capture vanagain_keywords
+    echo 'VanAgain, VW parts, Vanagon parts, VW Bus parts, Eurovan parts'
+    if request.page_type == 'product' and product.tags.size > 0
+      echo ', '
+      echo product.tags | join: ', '
+    elsif request.page_type == 'article' and article.tags.size > 0
+      echo ', '
+      echo article.tags | join: ', '
+    elsif current_tags
+      echo ', '
+      echo current_tags | join: ', '
+    elsif request.page_type == 'collection' and collection.title != blank
+      echo ', '
+      echo collection.title
+    elsif request.page_type == 'page' and page.title != blank
+      echo ', '
+      echo page.title
+    endif
+  endcapture
+  assign vanagain_keywords = vanagain_keywords | strip | strip_newlines
+-%}
+
+<meta
+  name="keywords"
+  content="{{ vanagain_keywords | escape }}"
+>
+
+{%- if request.page_type == 'product' and product.tags.size > 0 -%}
+  {%- for tag in product.tags limit: 20 -%}
+    <meta name="product:tag" content="{{ tag | escape }}">
+  {%- endfor -%}
+{%- elsif request.page_type == 'article' and article.tags.size > 0 -%}
+  {%- for tag in article.tags limit: 20 -%}
+    <meta property="article:tag" content="{{ tag | escape }}">
+  {%- endfor -%}
+{%- elsif current_tags -%}
+  {%- for tag in current_tags limit: 20 -%}
+    <meta name="content:tag" content="{{ tag | escape }}">
+  {%- endfor -%}
+{%- endif -%}

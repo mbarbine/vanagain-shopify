@@ -1,0 +1,152 @@
+{%- liquid
+  assign jsonld_title = page_title | default: shop.name
+  assign jsonld_url = canonical_url | default: request.origin
+  assign jsonld_description = page_description | default: shop.description | default: shop.name
+  assign breadcrumb_parent_name = ''
+  assign breadcrumb_parent_url = ''
+
+  case request.page_type
+    when 'product'
+      assign jsonld_title = product.title
+      assign jsonld_description = product.description | strip_html | truncate: 300
+      if collection != blank
+        assign breadcrumb_parent_name = collection.title
+        assign breadcrumb_parent_url = collection.url | prepend: request.origin
+      else
+        assign breadcrumb_parent_name = 'All Parts'
+        assign breadcrumb_parent_url = routes.all_products_collection_url | prepend: request.origin
+      endif
+    when 'collection'
+      assign jsonld_title = collection.title | default: 'All Parts'
+      assign jsonld_description = collection.description | strip_html | default: jsonld_description | truncate: 300
+    when 'article'
+      assign jsonld_title = article.title
+      assign jsonld_description = article.excerpt_or_content | strip_html | truncate: 300
+      assign breadcrumb_parent_name = blog.title | default: 'Blog'
+      assign breadcrumb_parent_url = blog.url | default: '/blogs/news' | prepend: request.origin
+    when 'page'
+      assign jsonld_title = page.title
+      assign jsonld_description = page.content | strip_html | default: jsonld_description | truncate: 300
+  endcase
+-%}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": {{ request.origin | json }},
+    "logo": {{ 'van-again-logo.png' | asset_url | prepend: 'https:' | json }},
+    "telephone": "888-250-8139",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Millville",
+      "addressRegion": "NJ",
+      "postalCode": "08332",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.facebook.com/VanAgainInc/",
+      "https://www.youtube.com/c/VanAgain",
+      "https://instagram.com/vanagain"
+    ]
+  }
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ shop.name | json }},
+    "url": {{ request.origin | json }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ request.origin | append: routes.search_url | append: '?q={search_term_string}&type=product' | json }},
+      "query-input": "required name=search_term_string"
+    }
+  }
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ request.origin | append: routes.root_url | json }}
+      }{% if breadcrumb_parent_name != blank and breadcrumb_parent_url != blank %},
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ breadcrumb_parent_name | json }},
+        "item": {{ breadcrumb_parent_url | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ jsonld_title | json }},
+        "item": {{ jsonld_url | json }}
+      }{% else %},
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ jsonld_title | json }},
+        "item": {{ jsonld_url | json }}
+      }{% endif %}
+    ]
+  }
+</script>
+
+{%- if request.page_type == 'product' -%}
+  {%- liquid
+    assign current_variant = product.selected_or_first_available_variant
+    assign product_availability = 'https://schema.org/OutOfStock'
+    if product.available
+      assign product_availability = 'https://schema.org/InStock'
+    endif
+  -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "description": {{ product.description | strip_html | truncate: 500 | json }},
+      "sku": {{ current_variant.sku | default: product.handle | json }},
+      "brand": {
+        "@type": "Brand",
+        "name": {{ product.vendor | default: shop.name | json }}
+      },
+      "category": {{ product.type | default: 'VW van parts' | json }},
+      "url": {{ jsonld_url | json }},
+      "offers": {
+        "@type": "Offer",
+        "price": "{{ current_variant.price | money_without_currency | replace: ',', '' }}",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "availability": {{ product_availability | json }},
+        "url": {{ jsonld_url | json }}
+      }
+    }
+  </script>
+{%- elsif request.page_type == 'article' -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": {{ article.title | json }},
+      "description": {{ jsonld_description | json }},
+      "url": {{ jsonld_url | json }},
+      "datePublished": {{ article.published_at | date: '%Y-%m-%d' | json }},
+      "author": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }}
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }}
+      }
+    }
+  </script>
+{%- endif -%}
