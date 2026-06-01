@@ -238,6 +238,7 @@ for (const requiredPath of [
   "templates/collection.compact-48.json",
   "templates/collection.compact-100.json",
   "sections/vanagain-contact.liquid",
+  "sections/vanagain-collections-hub.liquid",
   "snippets/vanagain-breadcrumbs.liquid",
   "snippets/vanagain-json-ld.liquid",
   "snippets/vanagain-page-fallback.liquid",
@@ -254,7 +255,22 @@ assert(themeLayoutText.includes("vanagain-breadcrumbs"), "Theme layout does not 
 const overridesText = readText("assets/vanagain-overrides.css");
 assert(overridesText.includes(".vanagain-breadcrumbs ol"), "Breadcrumbs are not styled as a horizontal list");
 assert(overridesText.includes(".vanagain-contact-info"), "Contact information section styles are missing");
+assert(overridesText.includes(".vanagain-collections-hub__vehicle-grid"), "Collections hub styles are missing");
 assert(overridesText.includes("body.template-policy .shopify-policy__body table"), "Policy table formatting styles are missing");
+assert(
+  overridesText.includes(".vanagain-collection-results--compact .product-grid") &&
+    overridesText.includes("repeat(auto-fill, minmax(10.75rem, 1fr))"),
+  "Compact product layout does not support dense desktop/tablet grids",
+);
+assert(
+  overridesText.includes("body.template-collection .product-grid__item .quick-add") &&
+    overridesText.includes("display: none !important"),
+  "Collection product cards still expose the blank quick-add overlay",
+);
+assert(
+  overridesText.includes("transform: scale(1.045)"),
+  "Collection product images do not have the restored hover zoom affordance",
+);
 
 for (const relPath of [
   ...walkJsonFiles("templates"),
@@ -271,6 +287,16 @@ assert(!indexText.includes("12,000+ Parts"), "Homepage still contains the unveri
 assert(!indexText.includes("AI-powered 24/7"), "Homepage still contains the unverified AI-powered 24/7 claim");
 assert(indexText.includes("/collections/all"), "Homepage does not link to /collections/all");
 assert(indexText.includes("/collections"), "Homepage does not link to /collections");
+
+const listCollectionsTemplate = readText("templates/list-collections.json");
+assert(
+  listCollectionsTemplate.includes('"type": "vanagain-collections-hub"'),
+  "Collections page does not use the VanAgain collections hub section",
+);
+const collectionsHubText = readText("sections/vanagain-collections-hub.liquid");
+assert(collectionsHubText.includes("Shop by year range and model"), "Collections hub is missing vehicle browse content");
+assert(collectionsHubText.includes("Browse common service categories"), "Collections hub is missing part-system browse content");
+assert(collectionsHubText.includes("filter.v.availability=1#ResultsList"), "Collections hub does not link into in-stock catalog results");
 
 const desktopNavText = readText("snippets/vanagain-desktop-nav-additions.liquid");
 const mobileNavText = readText("snippets/vanagain-mobile-nav-additions.liquid");

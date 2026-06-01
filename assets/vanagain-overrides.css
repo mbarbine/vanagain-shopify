@@ -2354,6 +2354,291 @@ body.template-collection .shopify-section-group-main .rte p {
   padding: 1.25rem;
 }
 
+.vanagain-collections-hub {
+  padding: 3.25rem 1rem 5rem;
+  background:
+    linear-gradient(to right, rgba(26, 107, 138, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 107, 138, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at top left, rgba(93, 173, 226, 0.16), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
+  background-size: 4rem 4rem, 4rem 4rem, auto, auto;
+}
+
+.vanagain-collections-hub__inner {
+  display: grid;
+  gap: 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.vanagain-collections-hub__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 27rem);
+  gap: 1.25rem;
+  align-items: end;
+}
+
+.vanagain-collections-hub__eyebrow,
+.vanagain-collections-hub__section-header p {
+  margin: 0 0 0.55rem;
+  color: var(--vanagain-primary);
+  font-size: 0.8rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vanagain-collections-hub h1,
+.vanagain-collections-hub h2 {
+  margin: 0;
+  color: #0f172a;
+  letter-spacing: 0;
+}
+
+.vanagain-collections-hub h1 {
+  max-width: 58rem;
+  font-size: clamp(2.55rem, 6.5vw, 5.25rem);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.vanagain-collections-hub h2 {
+  font-size: clamp(1.75rem, 3.4vw, 2.65rem);
+  line-height: 1.05;
+}
+
+.vanagain-collections-hub__hero p:not(.vanagain-collections-hub__eyebrow) {
+  max-width: 49rem;
+  margin: 1rem 0 0;
+  color: #475569;
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.vanagain-collections-hub__search {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem;
+  border: 1px solid rgba(224, 231, 236, 0.94);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--vanagain-shadow);
+}
+
+.vanagain-collections-hub__search label {
+  color: #0f172a;
+  font-weight: 850;
+}
+
+.vanagain-collections-hub__search input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--vanagain-border);
+  border-radius: 8px;
+  background: #ffffff;
+  font: inherit;
+}
+
+.vanagain-collections-hub__search button,
+.vanagain-collections-hub__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--vanagain-primary);
+  color: #ffffff;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.vanagain-collections-hub__search button:hover,
+.vanagain-collections-hub__actions a:hover {
+  background: var(--vanagain-primary-dark);
+  color: #ffffff;
+}
+
+.vanagain-collections-hub__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.vanagain-collections-hub__actions a:nth-child(n + 2) {
+  border: 1px solid var(--vanagain-border);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--vanagain-primary);
+}
+
+.vanagain-collections-hub__actions a:nth-child(n + 2):hover {
+  border-color: rgba(26, 107, 138, 0.3);
+  background: #eaf3f8;
+  color: var(--vanagain-primary-dark);
+}
+
+.vanagain-collections-hub__feature-grid,
+.vanagain-collections-hub__vehicle-grid,
+.vanagain-collections-hub__system-grid,
+.vanagain-collections-hub__live-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.vanagain-collections-hub__feature-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vanagain-collections-hub__feature,
+.vanagain-collections-hub__vehicle-card,
+.vanagain-collections-hub__system-grid a,
+.vanagain-collections-hub__collection-card {
+  border: 1px solid rgba(224, 231, 236, 0.94);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
+  text-decoration: none;
+  box-shadow: var(--vanagain-shadow-soft);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.vanagain-collections-hub__feature:hover,
+.vanagain-collections-hub__vehicle-card:hover,
+.vanagain-collections-hub__system-grid a:hover,
+.vanagain-collections-hub__collection-card:hover {
+  border-color: rgba(26, 107, 138, 0.34);
+  box-shadow: 0 18px 34px -24px rgba(15, 23, 42, 0.34);
+  transform: translateY(-2px);
+}
+
+.vanagain-collections-hub__feature {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+}
+
+.vanagain-collections-hub__feature span {
+  color: var(--vanagain-primary);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.vanagain-collections-hub__feature strong {
+  color: #0f172a;
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+.vanagain-collections-hub__section {
+  display: grid;
+  gap: 1rem;
+}
+
+.vanagain-collections-hub__section-header {
+  max-width: 50rem;
+}
+
+.vanagain-collections-hub__vehicle-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.vanagain-collections-hub__vehicle-card {
+  display: grid;
+  gap: 0.5rem;
+  min-height: 11rem;
+  padding: 1rem;
+}
+
+.vanagain-collections-hub__vehicle-card span {
+  color: #0f172a;
+  font-size: 1.02rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.vanagain-collections-hub__vehicle-card small {
+  color: #64748b;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.vanagain-collections-hub__vehicle-card strong,
+.vanagain-collections-hub__system-grid strong {
+  align-self: end;
+  color: var(--vanagain-primary);
+  font-size: 0.84rem;
+  font-weight: 850;
+}
+
+.vanagain-collections-hub__system-grid {
+  grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+}
+
+.vanagain-collections-hub__system-grid a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 3.35rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.vanagain-collections-hub__system-grid span {
+  color: #1e293b;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.vanagain-collections-hub__live-grid {
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+}
+
+.vanagain-collections-hub__collection-card {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.75rem;
+}
+
+.vanagain-collections-hub__collection-card img,
+.vanagain-collections-hub__collection-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  background: #eef6fa;
+}
+
+.vanagain-collections-hub__collection-card img {
+  display: block;
+  object-fit: cover;
+}
+
+.vanagain-collections-hub__collection-placeholder {
+  display: grid;
+  place-items: center;
+  color: rgba(26, 107, 138, 0.38);
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.vanagain-collections-hub__collection-card > span:not(.vanagain-collections-hub__collection-placeholder) {
+  color: #0f172a;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.vanagain-collections-hub__collection-card small {
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
 .section-password {
   background:
     radial-gradient(circle at top, rgba(93, 173, 226, 0.18), transparent 38%),
@@ -2421,6 +2706,18 @@ body.template-collection .shopify-section-group-main .rte p {
 
   .vanagain-contact-page__body {
     grid-template-columns: 1fr;
+  }
+
+  .vanagain-collections-hub__hero {
+    grid-template-columns: 1fr;
+  }
+
+  .vanagain-collections-hub__feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vanagain-collections-hub__vehicle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -2559,6 +2856,24 @@ body.template-collection .shopify-section-group-main .rte p {
   }
 
   .vanagain-contact-card {
+    min-height: auto;
+  }
+
+  .vanagain-collections-hub {
+    padding-block: 2.5rem 3.5rem;
+  }
+
+  .vanagain-collections-hub h1 {
+    font-size: 2.65rem;
+  }
+
+  .vanagain-collections-hub__vehicle-grid,
+  .vanagain-collections-hub__system-grid,
+  .vanagain-collections-hub__live-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vanagain-collections-hub__vehicle-card {
     min-height: auto;
   }
 
