@@ -426,6 +426,14 @@ header-component {
   padding-inline: 1rem;
 }
 
+.vanagain-footer__main.section--page-width,
+.vanagain-footer__bottom-inner.section--page-width {
+  --page-margin: clamp(0.65rem, 2vw, 1rem);
+  --page-content-width: 96rem;
+  --page-width: calc(var(--page-content-width) + (var(--page-margin) * 2));
+  max-width: none;
+}
+
 .vanagain-footer__main {
   display: grid;
   gap: 1.5rem;
@@ -1499,7 +1507,15 @@ body.template-policy .shopify-policy__body .rte .text-center {
 body.template-policy .shopify-policy__body .rte .grid {
   display: grid !important;
   grid-template-columns: 1fr !important;
+  grid-template-areas: none !important;
+  grid-auto-flow: row !important;
+  grid-auto-columns: minmax(0, 1fr) !important;
   gap: 1rem;
+}
+
+body.template-policy .shopify-policy__body .rte .grid > * {
+  grid-column: auto !important;
+  min-width: 0;
 }
 
 body.template-policy .shopify-policy__body .rte .flex {
@@ -1695,10 +1711,12 @@ body.template-policy .shopify-policy__body .rte p {
 @media screen and (min-width: 750px) {
   body.template-policy .shopify-policy__body .rte .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-areas: none !important;
   }
 
   body.template-policy .shopify-policy__body .rte .sm\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-areas: none !important;
   }
 }
 
