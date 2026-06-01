@@ -2454,13 +2454,40 @@ body.template-collection .shopify-section-group-main .rte p {
   }
 
   body.template-collection .vanagain-results-toolbar {
+    position: sticky;
+    top: calc(var(--header-height, 4rem) + 0.25rem);
+    z-index: 12;
     align-items: flex-start;
     flex-direction: column;
   }
 
   body.template-collection .vanagain-results-toolbar__controls {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+  }
+
+  body.template-collection .vanagain-results-toolbar__layout,
+  body.template-collection .vanagain-results-toolbar__select,
+  body.template-collection .vanagain-results-toolbar__select select {
+    width: 100%;
+  }
+
+  body.template-collection .vanagain-results-toolbar__layout a {
+    flex: 1 1 0;
+  }
+
+  body.template-collection .vanagain-results-toolbar__select {
     justify-content: space-between;
+  }
+
+  body.template-collection .vanagain-collection-results--compact .product-grid__item .product-card__content {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+
+  body.template-collection .vanagain-collection-results--compact .vanagain-card-fitments {
+    display: none;
   }
 
   body.template-collection .vanagain-card-actions {

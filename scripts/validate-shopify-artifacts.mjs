@@ -231,6 +231,12 @@ for (const requiredPath of [
   "templates/blog.json",
   "templates/article.json",
   "templates/page.contact.json",
+  "templates/collection.grid-24.json",
+  "templates/collection.grid-48.json",
+  "templates/collection.grid-100.json",
+  "templates/collection.compact-24.json",
+  "templates/collection.compact-48.json",
+  "templates/collection.compact-100.json",
   "sections/vanagain-contact.liquid",
   "snippets/vanagain-breadcrumbs.liquid",
   "snippets/vanagain-json-ld.liquid",
@@ -287,6 +293,28 @@ assert(collectionSectionText.includes("vanagain-catalog-filter-panel"), "All-pro
 assert(collectionSectionText.includes("vanagain-collection-results"), "All-products catalog results are not wrapped beside filters");
 assert(collectionSectionText.includes("scrollIntoView"), "Filtered catalog URLs do not auto-focus product results");
 assert(!collectionSectionText.includes("behavior: 'instant'"), "Collection auto-scroll uses non-standard instant behavior");
+assert(collectionSectionText.includes("data-vanagain-layout-link"), "Collection toolbar is missing grid/compact layout controls");
+assert(collectionSectionText.includes("data-vanagain-page-size-select"), "Collection toolbar is missing 24/48/100 page-size controls");
+assert(collectionSectionText.includes("nextUrl.searchParams.set('view'"), "Collection toolbar does not preserve controls through Shopify alternate views");
+
+for (const [templateName, layout, pageSize] of [
+  ["collection.grid-24.json", "grid", 24],
+  ["collection.grid-48.json", "grid", 48],
+  ["collection.grid-100.json", "grid", 100],
+  ["collection.compact-24.json", "compact", 24],
+  ["collection.compact-48.json", "compact", 48],
+  ["collection.compact-100.json", "compact", 100],
+]) {
+  const collectionTemplate = parseShopifyJson(`templates/${templateName}`);
+  assert(
+    collectionTemplate?.sections?.main?.settings?.vanagain_catalog_layout === layout,
+    `${templateName} does not set the ${layout} catalog layout`,
+  );
+  assert(
+    collectionTemplate?.sections?.main?.settings?.products_per_page === pageSize,
+    `${templateName} does not set ${pageSize} products per page`,
+  );
+}
 
 const footerText = readText("sections/footer.liquid");
 assert(!/paypal/i.test(footerText), "Footer still includes PayPal donation copy or links");

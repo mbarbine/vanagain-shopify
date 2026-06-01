@@ -13,8 +13,6 @@
   "sections": {
     "footer_m9NzUG": {
       "type": "footer",
-      "blocks": {},
-      "block_order": [],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
