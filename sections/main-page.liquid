@@ -15,15 +15,17 @@
       {% render 'spacing-style', settings: section.settings %}
     "
   >
-    {% content_for 'blocks' %}
     {% if page.handle == 'testimonials' %}
       {% render 'vanagain-testimonials-list' %}
-    {% elsif page.handle == 'submit-testimonial' and page.content == blank %}
-      {% render 'vanagain-page-fallback', handle: 'submit-testimonial' %}
-    {% elsif page.handle == 'faq' and page.content == blank %}
-      {% render 'vanagain-page-fallback', handle: 'faq' %}
-    {% elsif page.handle == 'about' and page.content == blank %}
-      {% render 'vanagain-page-fallback', handle: 'about' %}
+    {% else %}
+      {% content_for 'blocks' %}
+      {% if page.handle == 'submit-testimonial' and page.content == blank %}
+        {% render 'vanagain-page-fallback', handle: 'submit-testimonial' %}
+      {% elsif page.handle == 'faq' and page.content == blank %}
+        {% render 'vanagain-page-fallback', handle: 'faq' %}
+      {% elsif page.handle == 'about' and page.content == blank %}
+        {% render 'vanagain-page-fallback', handle: 'about' %}
+      {% endif %}
     {% endif %}
   </div>
 </div>

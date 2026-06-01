@@ -104,6 +104,7 @@
 {%- if request.page_type == 'product' -%}
   {%- liquid
     assign current_variant = product.selected_or_first_available_variant
+    assign jsonld_currency = cart.currency.iso_code | default: shop.currency
     assign product_availability = 'https://schema.org/OutOfStock'
     if product.available
       assign product_availability = 'https://schema.org/InStock'
@@ -125,7 +126,7 @@
       "offers": {
         "@type": "Offer",
         "price": "{{ current_variant.price | money_without_currency | replace: ',', '' }}",
-        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "priceCurrency": {{ jsonld_currency | json }},
         "availability": {{ product_availability | json }},
         "url": {{ jsonld_url | json }}
       }

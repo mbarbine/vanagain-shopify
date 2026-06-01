@@ -230,12 +230,25 @@ for (const requiredPath of [
   "templates/product.json",
   "templates/blog.json",
   "templates/article.json",
+  "templates/page.contact.json",
+  "sections/vanagain-contact.liquid",
+  "snippets/vanagain-breadcrumbs.liquid",
+  "snippets/vanagain-json-ld.liquid",
+  "snippets/vanagain-page-fallback.liquid",
+  "snippets/vanagain-testimonials-list.liquid",
 ]) {
   assert(fs.existsSync(absolute(requiredPath)), `${requiredPath} is missing`);
 }
 
 const themeLayoutText = readText("layout/theme.liquid");
 assert(themeLayoutText.includes("template-{{ request.page_type"), "Theme body does not emit request.page_type template classes");
+assert(themeLayoutText.includes("vanagain-json-ld"), "Theme layout does not render VanAgain JSON-LD");
+assert(themeLayoutText.includes("vanagain-breadcrumbs"), "Theme layout does not render breadcrumbs");
+
+const overridesText = readText("assets/vanagain-overrides.css");
+assert(overridesText.includes(".vanagain-breadcrumbs ol"), "Breadcrumbs are not styled as a horizontal list");
+assert(overridesText.includes(".vanagain-contact-info"), "Contact information section styles are missing");
+assert(overridesText.includes("body.template-policy .shopify-policy__body table"), "Policy table formatting styles are missing");
 
 for (const relPath of [
   ...walkJsonFiles("templates"),
@@ -267,6 +280,33 @@ assert(!/<strong>\s*\d/.test(catalogFiltersText), "Catalog filter still renders 
 assert(catalogFiltersText.includes("View in-stock catalog"), "Catalog filter primary CTA is too generic");
 assert(mobileNavText.includes("Coolant System"), "Mobile Parts navigation does not include system shortcuts");
 assert(!catalogFiltersText.includes("filter.p.tag="), "Catalog filter links still use unreliable native tag query filters");
+assert(catalogFiltersText.includes("#ResultsList"), "Catalog filter links do not jump to product results");
+
+const collectionSectionText = readText("sections/main-collection.liquid");
+assert(collectionSectionText.includes("vanagain-catalog-filter-panel"), "All-products catalog does not use a collapsible filter panel");
+assert(collectionSectionText.includes("vanagain-collection-results"), "All-products catalog results are not wrapped beside filters");
+assert(collectionSectionText.includes("scrollIntoView"), "Filtered catalog URLs do not auto-focus product results");
+assert(!collectionSectionText.includes("behavior: 'instant'"), "Collection auto-scroll uses non-standard instant behavior");
+
+const footerText = readText("sections/footer.liquid");
+assert(!/paypal/i.test(footerText), "Footer still includes PayPal donation copy or links");
+
+const contactTemplateText = readText("templates/page.contact.json");
+assert(contactTemplateText.includes('"type": "vanagain-contact"'), "Contact page does not use the custom VanAgain contact section");
+const contactSectionText = readText("sections/vanagain-contact.liquid");
+assert(contactSectionText.includes("vanagain-contact-info"), "Contact page does not render a dedicated contact info section");
+assert(contactSectionText.includes("{% form 'contact'"), "Contact page does not render the Shopify contact form");
+
+const main404Text = readText("sections/main-404.liquid");
+assert(main404Text.includes("/pages/faq"), "404 fallback does not cover the FAQ page path");
+assert(main404Text.includes("/pages/submit-testimonial"), "404 fallback does not cover the submit testimonial page path");
+assert(main404Text.includes("/policies/terms-of-service"), "404 fallback does not cover the terms policy path");
+
+const mainPageText = readText("sections/main-page.liquid");
+assert(
+  mainPageText.indexOf("{% render 'vanagain-testimonials-list' %}") < mainPageText.indexOf("{% content_for 'blocks' %}"),
+  "Testimonials page still renders Shopify page blocks before the migrated testimonial grid",
+);
 
 const productTemplateText = readText("templates/product.json");
 assert(
