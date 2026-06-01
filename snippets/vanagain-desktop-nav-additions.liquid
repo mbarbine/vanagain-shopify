@@ -14,14 +14,9 @@
   assign catalog_url = routes.all_products_collection_url
   assign search_url = routes.search_url
   assign privacy_url = '/policies/privacy-policy'
-  assign terms_url = '/policies/terms-of-service'
 
   if shop.privacy_policy != blank
     assign privacy_url = shop.privacy_policy.url
-  endif
-
-  if shop.terms_of_service != blank
-    assign terms_url = shop.terms_of_service.url
   endif
 %}
 
@@ -103,7 +98,11 @@
         <a href="/pages/aeo">AEO Reference</a>
         <a href="/pages/geo">GEO Reference</a>
         <a href="{{ privacy_url }}">Privacy Policy</a>
-        <a href="{{ terms_url }}">Terms of Service</a>
+        {% if shop.terms_of_service != blank %}
+          <a href="{{ shop.terms_of_service.url }}">Terms of Service</a>
+        {% else %}
+          <a href="/pages/faq">Ordering Terms</a>
+        {% endif %}
       </div>
     </details>
   </li>

@@ -2,19 +2,22 @@
 {% liquid
   assign current_year = 'now' | date: '%Y'
   assign privacy_url = '/policies/privacy-policy'
-  assign terms_url = '/policies/terms-of-service'
 
   if shop.privacy_policy != blank
     assign privacy_url = shop.privacy_policy.url
-  endif
-
-  if shop.terms_of_service != blank
-    assign terms_url = shop.terms_of_service.url
   endif
 %}
 
 <div class="vanagain-footer">
   <div class="vanagain-footer__main section section--{{ section.settings.section_width }}">
+    <div class="vanagain-footer__topline">
+      <div>
+        <strong>Need fitment help?</strong>
+        <span>Talk with Ken Wilford and the VanAgain team before ordering.</span>
+      </div>
+      <a href="/pages/contact">Contact support</a>
+    </div>
+
     <div class="vanagain-footer__grid">
       <div class="vanagain-footer__brand">
         <a class="vanagain-footer__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
@@ -47,7 +50,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="vanagain-footer__nav-group">
         <h3 class="vanagain-footer__links-title">Shop</h3>
         <div class="vanagain-footer__links">
           <a class="vanagain-footer__link" href="{{ routes.all_products_collection_url }}">All Products</a>
@@ -58,7 +61,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="vanagain-footer__nav-group">
         <h3 class="vanagain-footer__links-title">Support</h3>
         <div class="vanagain-footer__links">
           <a class="vanagain-footer__link" href="/pages/contact">Contact Us</a>
@@ -69,7 +72,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="vanagain-footer__nav-group">
         <h3 class="vanagain-footer__links-title">Company</h3>
         <div class="vanagain-footer__links">
           <a class="vanagain-footer__link" href="/pages/about">About Us</a>
@@ -80,7 +83,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="vanagain-footer__nav-group">
         <h3 class="vanagain-footer__links-title">Resources</h3>
         <div class="vanagain-footer__links">
           <a class="vanagain-footer__link" href="/pages/vw-accessories">VW Accessories</a>
@@ -89,11 +92,15 @@
           <a class="vanagain-footer__link" href="/pages/aeo">AEO Reference</a>
           <a class="vanagain-footer__link" href="/pages/geo">GEO Reference</a>
           <a class="vanagain-footer__link" href="{{ privacy_url }}">Privacy Policy</a>
-          <a class="vanagain-footer__link" href="{{ terms_url }}">Terms of Service</a>
+          {% if shop.terms_of_service != blank %}
+            <a class="vanagain-footer__link" href="{{ shop.terms_of_service.url }}">Terms of Service</a>
+          {% else %}
+            <a class="vanagain-footer__link" href="/pages/faq">Ordering Terms</a>
+          {% endif %}
         </div>
       </div>
 
-      <div>
+      <div class="vanagain-footer__newsletter">
         <h3 class="vanagain-footer__newsletter-title">Newsletter</h3>
         <p class="vanagain-footer__newsletter-copy">
           Get exclusive deals and early access to new products.
@@ -136,8 +143,6 @@
         {% endif %}
         {% if shop.terms_of_service != blank %}
           <a href="{{ shop.terms_of_service.url }}">Terms of Service</a>
-        {% else %}
-          <a href="{{ terms_url }}">Terms of Service</a>
         {% endif %}
         {% if shop.shipping_policy != blank %}
           <a href="{{ shop.shipping_policy.url }}">Shipping</a>
