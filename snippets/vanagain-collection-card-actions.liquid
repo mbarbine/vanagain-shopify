@@ -1,0 +1,33 @@
+{%- doc -%}
+  Renders source-catalog availability and cart action for a collection product card.
+
+  @param {product} product - The product to render.
+{%- enddoc -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign can_add_to_cart = variant.available
+  assign product_form_id = 'VanAgainCollectionCard-' | append: product.id
+-%}
+
+<div class="vanagain-card-actions">
+  <span class="vanagain-card-actions__stock {% if can_add_to_cart %}vanagain-card-actions__stock--in{% else %}vanagain-card-actions__stock--out{% endif %}">
+    {%- if can_add_to_cart -%}
+      In Stock
+    {%- else -%}
+      Out of Stock
+    {%- endif -%}
+  </span>
+
+  {%- if product.variants_count == 1 -%}
+    {%- form 'product', product, id: product_form_id, class: 'vanagain-card-actions__form' -%}
+      <input type="hidden" name="id" value="{{ variant.id }}" {% unless can_add_to_cart %}disabled{% endunless %}>
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" name="add" class="vanagain-card-actions__button" {% unless can_add_to_cart %}disabled{% endunless %}>
+        Add to Cart
+      </button>
+    {%- endform -%}
+  {%- else -%}
+    <a class="vanagain-card-actions__button" href="{{ product.url }}">Choose Options</a>
+  {%- endif -%}
+</div>

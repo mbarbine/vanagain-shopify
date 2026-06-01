@@ -1,0 +1,29 @@
+{% liquid
+  assign catalog_url = routes.all_products_collection_url
+%}
+
+<section class="vanagain-browser section section--page-width">
+  <div class="vanagain-browser__header">
+    <div>
+      <h2>Browse the Full VanAgain Catalog</h2>
+      <p>Search the same active VW Bus, Vanagon, and Eurovan catalog data used by the legacy storefront.</p>
+    </div>
+    <a href="{{ catalog_url }}?filter.v.availability=1">View all products</a>
+  </div>
+
+  <div class="vanagain-browser__panel">
+    {% render 'vanagain-catalog-filters', catalog_url: catalog_url %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VanAgain Catalog Sidebar",
+  "settings": [],
+  "presets": [
+    {
+      "name": "VanAgain Catalog Sidebar"
+    }
+  ]
+}
+{% endschema %}

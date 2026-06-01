@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "vanagain-returns",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

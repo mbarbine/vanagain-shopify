@@ -1,0 +1,73 @@
+{%- doc -%}
+  Appends VanAgain content-page groups to the mobile menu drawer when the Shopify
+  menu does not already include equivalent top-level groups.
+
+  @param {object} linklist - The configured Shopify navigation menu
+  @param {number} animation_start - Animation index offset for drawer items
+{%- enddoc -%}
+
+{% liquid
+  assign menu_titles = '|'
+  for link in linklist.links
+    assign normalized_title = link.title | downcase | strip
+    assign menu_titles = menu_titles | append: normalized_title | append: '|'
+  endfor
+  assign animation_index = animation_start | default: linklist.links.size
+%}
+
+{% unless menu_titles contains '|support|' %}
+  {% assign animation_index = animation_index | plus: 1 %}
+  <li class="menu-drawer__list-item menu-drawer__list-item--deep menu-drawer__list-item--divider" style="--menu-drawer-animation-index: {{ animation_index }};">
+    <details>
+      <summary class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset">
+        <span class="menu-drawer__menu-item-text wrap-text">Support</span>
+        <span class="svg-wrapper icon-plus">{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+      </summary>
+      <ul class="menu-drawer__menu menu-drawer__menu--childlist details-content" role="list" tabindex="-1">
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/faq"><span class="menu-drawer__menu-item-text wrap-text">FAQ</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{% if shop.shipping_policy != blank %}{{ shop.shipping_policy.url }}{% else %}/pages/shipping{% endif %}"><span class="menu-drawer__menu-item-text wrap-text">Shipping</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="{% if shop.refund_policy != blank %}{{ shop.refund_policy.url }}{% else %}/pages/returns{% endif %}"><span class="menu-drawer__menu-item-text wrap-text">Returns</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/track-order"><span class="menu-drawer__menu-item-text wrap-text">Track Order</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/contact"><span class="menu-drawer__menu-item-text wrap-text">Contact</span></a></li>
+      </ul>
+    </details>
+  </li>
+{% endunless %}
+
+{% unless menu_titles contains '|company|' %}
+  {% assign animation_index = animation_index | plus: 1 %}
+  <li class="menu-drawer__list-item menu-drawer__list-item--deep menu-drawer__list-item--divider" style="--menu-drawer-animation-index: {{ animation_index }};">
+    <details>
+      <summary class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset">
+        <span class="menu-drawer__menu-item-text wrap-text">Company</span>
+        <span class="svg-wrapper icon-plus">{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+      </summary>
+      <ul class="menu-drawer__menu menu-drawer__menu--childlist details-content" role="list" tabindex="-1">
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/about"><span class="menu-drawer__menu-item-text wrap-text">About</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/blogs/news"><span class="menu-drawer__menu-item-text wrap-text">Blog</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/rewards"><span class="menu-drawer__menu-item-text wrap-text">Rewards</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/testimonials"><span class="menu-drawer__menu-item-text wrap-text">Testimonials</span></a></li>
+      </ul>
+    </details>
+  </li>
+{% endunless %}
+
+{% unless menu_titles contains '|resources|' %}
+  {% assign animation_index = animation_index | plus: 1 %}
+  <li class="menu-drawer__list-item menu-drawer__list-item--deep menu-drawer__list-item--divider" style="--menu-drawer-animation-index: {{ animation_index }};">
+    <details>
+      <summary class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset">
+        <span class="menu-drawer__menu-item-text wrap-text">Resources</span>
+        <span class="svg-wrapper icon-plus">{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+      </summary>
+      <ul class="menu-drawer__menu menu-drawer__menu--childlist details-content" role="list" tabindex="-1">
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/vw-accessories"><span class="menu-drawer__menu-item-text wrap-text">VW Accessories</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/llms-txt"><span class="menu-drawer__menu-item-text wrap-text">LLMs.txt</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/seo"><span class="menu-drawer__menu-item-text wrap-text">SEO Reference</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/aeo"><span class="menu-drawer__menu-item-text wrap-text">AEO Reference</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/geo"><span class="menu-drawer__menu-item-text wrap-text">GEO Reference</span></a></li>
+        <li class="menu-drawer__list-item"><a class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset" href="/pages/privacy-terms"><span class="menu-drawer__menu-item-text wrap-text">Privacy &amp; Terms</span></a></li>
+      </ul>
+    </details>
+  </li>
+{% endunless %}

@@ -1,0 +1,49 @@
+{%- doc -%}
+  Renders source-catalog vehicle fitment badges for a collection product card.
+
+  @param {product} product - The product to inspect.
+{%- enddoc -%}
+
+{%- liquid
+  assign fitment_definitions = '68-79 Bus::68-79-bus|80-83 Air Cooled Vanagon::80-83-air-cooled-vanagon|82-84 Diesel Vanagon::82-84-diesel-vanagon|83-85 1.9L Vanagon::83-85-19l-vanagon|86-92 2.1L Vanagon::86-92-21l-vanagon|92-96 2.5L Eurovan::92-96-25l-eurovan|97-03 2.8L Eurovan::97-03-28l-eurovan' | split: '|'
+  assign shown_count = 0
+  assign hidden_count = 0
+  assign badge_markup = ''
+-%}
+
+{%- for definition in fitment_definitions -%}
+  {%- liquid
+    assign parts = definition | split: '::'
+    assign label = parts[0]
+    assign slug = parts[1]
+    assign prefixed_slug = 'vehicle:' | append: slug
+    assign has_fitment = false
+
+    if product.tags contains label or product.tags contains slug or product.tags contains prefixed_slug
+      assign has_fitment = true
+    endif
+
+    if has_fitment
+      if shown_count < 2
+        capture badge_markup
+          echo badge_markup
+          echo '<span class="vanagain-card-fitments__badge">'
+          echo label
+          echo '</span>'
+        endcapture
+        assign shown_count = shown_count | plus: 1
+      else
+        assign hidden_count = hidden_count | plus: 1
+      endif
+    endif
+  -%}
+{%- endfor -%}
+
+{%- if shown_count > 0 -%}
+  <div class="vanagain-card-fitments" aria-label="Vehicle fitment">
+    {{ badge_markup }}
+    {%- if hidden_count > 0 -%}
+      <span class="vanagain-card-fitments__badge">+{{ hidden_count }} more</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

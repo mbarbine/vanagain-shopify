@@ -1,0 +1,79 @@
+<section class="section section--page-width vanagain-about">
+  <div class="vanagain-about__hero">
+    <p class="vanagain-about__eyebrow">About</p>
+    <h1>{{ page.title | default: 'About VanAgain' }}</h1>
+  </div>
+
+  <div class="vanagain-about__content rte">
+    {{ page.content }}
+  </div>
+
+  <div class="vanagain-about__cta">
+    <h2>Ready to Find Your Parts?</h2>
+    <p>Browse our catalog or contact us for fitment help.</p>
+    <div class="vanagain-about__actions">
+      <a class="button" href="{{ routes.all_products_collection_url }}?filter.v.availability=1">Shop All Parts</a>
+      <a class="button button-secondary" href="/pages/contact">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .vanagain-about {
+    padding-block: 2rem 3rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .vanagain-about__eyebrow {
+    margin: 0;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1a6b8a;
+    font-weight: 700;
+  }
+
+  .vanagain-about__hero h1 {
+    margin: 0.3rem 0 0.6rem;
+    font-size: clamp(1.8rem, 3.3vw, 2.8rem);
+  }
+
+  .vanagain-about__content {
+    border: 1px solid #dce8ef;
+    border-radius: 14px;
+    padding: 1.1rem;
+    background: #fff;
+  }
+
+  .vanagain-about__cta {
+    border-radius: 16px;
+    padding: 1.1rem;
+    background: linear-gradient(180deg, #eff8fd 0%, #e4f2fa 100%);
+    border: 1px solid #cfe3ef;
+  }
+
+  .vanagain-about__cta h2 {
+    margin: 0;
+  }
+
+  .vanagain-about__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+  }
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "VanAgain About",
+  "settings": [],
+  "presets": [
+    {
+      "name": "VanAgain About"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,89 @@
+<section class="section section--page-width vanagain-faq">
+  <div class="vanagain-faq__hero">
+    <p class="vanagain-faq__eyebrow">Help</p>
+    <h1>{{ page.title | default: 'Frequently Asked Questions' }}</h1>
+  </div>
+
+  <div class="vanagain-faq__items rte">
+    {{ page.content }}
+  </div>
+
+  <div class="vanagain-faq__cta">
+    <h2>Still Need Help?</h2>
+    <p>Our team can help confirm fitment and point you to the right parts.</p>
+    <a class="button" href="/pages/contact">Contact VanAgain</a>
+  </div>
+</section>
+
+{% stylesheet %}
+  .vanagain-faq {
+    padding-block: 2rem 3rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .vanagain-faq__eyebrow {
+    margin: 0;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1a6b8a;
+    font-weight: 700;
+  }
+
+  .vanagain-faq__hero h1 {
+    margin: 0.3rem 0 0.6rem;
+    font-size: clamp(1.8rem, 3.3vw, 2.8rem);
+  }
+
+  .vanagain-faq__items {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .vanagain-faq__items details {
+    border: 1px solid #dce8ef;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    background: #fff;
+  }
+
+  .vanagain-faq__items summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #123749;
+  }
+
+  .vanagain-faq__items p {
+    margin: 0.6rem 0 0;
+    color: #374151;
+  }
+
+  .vanagain-faq__cta {
+    margin-top: 0.25rem;
+    border-radius: 16px;
+    padding: 1.1rem;
+    background: linear-gradient(180deg, #eff8fd 0%, #e4f2fa 100%);
+    border: 1px solid #cfe3ef;
+  }
+
+  .vanagain-faq__cta h2 {
+    margin: 0;
+  }
+
+  .vanagain-faq__cta .button {
+    margin-top: 0.7rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "VanAgain FAQ",
+  "settings": [],
+  "presets": [
+    {
+      "name": "VanAgain FAQ"
+    }
+  ]
+}
+{% endschema %}

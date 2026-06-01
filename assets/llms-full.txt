@@ -1,0 +1,88 @@
+# VanAgain
+
+A discount parts source for VWs specializing in Vanagons, Eurovans, and VW buses
+
+## Store
+- Shopify store: https://van-again.myshopify.com
+- Future canonical domain: https://vanagain.com
+- Public catalog: /collections/all
+- Contact: support@vanagain.com
+- Toll free order line and fax: 888-250-8139
+
+## Vehicle Fitment Tags
+- 68-79 Bus: 68-79-bus
+- 80-83 Air Cooled Vanagon: 80-83-air-cooled-vanagon
+- 82-84 Diesel Vanagon: 82-84-diesel-vanagon
+- 83-85 1.9L Vanagon: 83-85-19l-vanagon
+- 86-92 2.1L Vanagon: 86-92-21l-vanagon
+- 92-96 2.5L Eurovan: 92-96-25l-eurovan
+- 97-03 2.8L Eurovan: 97-03-28l-eurovan
+
+## Part Categories
+- Accessories: accessories
+- Air Intake: air-intake
+- Body - Electrical: body-electrical
+- Body Mechanical & Trim: body-mechanical-trim
+- Brakes: brakes
+- Camper Parts: camper-parts
+- Climate Control: climate-control
+- Clutch: clutch
+- Coolant System: coolant-system
+- Drive Belts: drive-belts
+- Drive Shaft: drive-shaft
+- Electrical Items: electrical-items
+- Engine Conversion Parts: engine-conversion-parts
+- Engine Electrical: engine-electrical
+- Engine Parts: engine-parts
+- Exhaust Parts: exhaust-parts
+- Featured Items: featured-items
+- Fuel Delivery: fuel-delivery
+- Fuel Injection: fuel-injection
+- Suspension and Steering: suspension-and-steering
+- Tires: tires
+- Tools: tools
+- Tools and Hardware: tools-and-hardware
+- Transmission & Drivetrain: transmission-drivetrain
+- Tune-up Parts: tune-up-parts
+- Wheels: wheels
+
+## Content Pages
+- ABOUT: /pages/about
+- Contact Us: /pages/contact
+- FAQ: /pages/faq
+- VW Accessories: /pages/vw-accessories
+- Privacy & Terms: /pages/privacy-terms
+- Testimonials: /pages/testimonials
+- Submit Testimonial: /pages/submit-testimonial
+- Support: /pages/support
+- Shipping Information: /pages/shipping
+- Returns & Refunds: /pages/returns
+- Track Order: /pages/track-order
+- Rewards: /pages/rewards
+- SEO Reference: /pages/seo
+- Answer Engine Reference: /pages/aeo
+- Geographic Service Reference: /pages/geo
+- LLMs.txt: /pages/llms-txt
+
+## Commerce
+- Cart, customer account, payment, checkout, email capture, and contact forms are handled by Shopify native functionality and theme app blocks.
+
+## Contact Details
+2001 Lakeshore Drive Millville NJ, 08332 USA sales@vanagain.com Toll free order line and fax:&nbsp; 888-250-8139 Need Advice or Help?&nbsp; Please use 856-327-4936
+
+## FAQ Index
+- Ordering Terms: Product descriptions are as accurate as possible but if you have questions about a certain application, please contact Van-Again before ordering. Product availability is not guaranteed. Please call to ascertain an item&rsquo;s availability before ordering online if you must have 
+- Shipping: Shipping terms: we ship via UPS or USPS (Post Office).&nbsp; Orders placed before 2pm Eastern Daylight Time will be processed that day, orders placed later in the day or over the weekend will not be processed until the next business day.&nbsp; Business days are Monday-Friday. Buy
+- Returns and refunds: Return terms:&nbsp;Returns are subject to approval.&nbsp;Please contact us via email or phone before returning anything.&nbsp;You must get an email approving your return before you send it back.&nbsp;Leaving a voicemail that you are returning something isn’t going to work. Return
+- Wishlists: Customers may create wishlists for their private use by clicking the Heart Icon at the bottom of all part descriptions.&nbsp; You must be a registered user and be logged in to create a wishlist.&nbsp; A wishlist is a way for you to save a list of parts you are interested in, so t
+- Reward Points: For every $1 in purchases at Vanagain.com (excluding shipping and tax), 1 reward point will be awarded. For example, a $200 subtotal will earn the customer 200 points. Points can be redeemed in trade towards future purchases at a rate of 5%. That means 200 points could be used fo
+
+## SEO
+- Site title: Van Again
+- Tagline: A discount parts source for VWs specializing in Vanagons, Eurovans, and VW buses
+- Future canonical website: https://www.vanagain.com
+
+## Import State
+- Product import source: csv_export/shopify-products-import.csv
+- Page upsert source: csv_export/shopify-pages-upsert.json
+- Category redirects source: csv_export/shopify-url-redirects-categories.csv

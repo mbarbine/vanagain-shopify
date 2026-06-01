@@ -1,0 +1,100 @@
+<section class="section section--page-width vanagain-policy-page">
+  <div class="vanagain-policy-page__hero">
+    <p class="vanagain-policy-page__eyebrow">Support</p>
+    <h1>{{ page.title | default: 'Track Your Order' }}</h1>
+  </div>
+
+  <div class="vanagain-policy-page__cards rte">
+    {{ page.content }}
+  </div>
+
+  <div class="vanagain-policy-page__cta">
+    <h2>Open Order Tracking</h2>
+    <div class="vanagain-policy-page__actions">
+      <a class="button" href="{{ routes.account_login_url }}">Sign In to Account</a>
+      <a class="button button-secondary" href="{{ routes.account_url }}">View Orders</a>
+      <a class="button button-secondary" href="/pages/contact">Contact Support</a>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .vanagain-policy-page {
+    padding-block: 2rem 3rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .vanagain-policy-page__eyebrow {
+    margin: 0;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1a6b8a;
+    font-weight: 700;
+  }
+
+  .vanagain-policy-page__hero h1 {
+    margin: 0.3rem 0 0.6rem;
+    font-size: clamp(1.8rem, 3.3vw, 2.6rem);
+  }
+
+  .vanagain-policy-page__cards {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .vanagain-policy-page__cards article {
+    border: 1px solid #dce8ef;
+    border-radius: 12px;
+    padding: 1rem;
+    background: #fff;
+  }
+
+  .vanagain-policy-page__cards h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+
+  .vanagain-policy-page__cards ul,
+  .vanagain-policy-page__cards ol {
+    margin: 0;
+    padding-left: 1rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .vanagain-policy-page__cards p:last-child {
+    margin-bottom: 0;
+  }
+
+  .vanagain-policy-page__cta {
+    border-radius: 16px;
+    padding: 1.1rem;
+    background: linear-gradient(180deg, #eff8fd 0%, #e4f2fa 100%);
+    border: 1px solid #cfe3ef;
+  }
+
+  .vanagain-policy-page__cta h2 {
+    margin: 0;
+  }
+
+  .vanagain-policy-page__actions {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "VanAgain Track Order",
+  "settings": [],
+  "presets": [
+    {
+      "name": "VanAgain Track Order"
+    }
+  ]
+}
+{% endschema %}

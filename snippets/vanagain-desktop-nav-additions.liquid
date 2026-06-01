@@ -1,0 +1,65 @@
+{%- doc -%}
+  Appends VanAgain content-page groups when the Shopify main menu does not already
+  include equivalent top-level groups.
+
+  @param {object} linklist - The configured Shopify navigation menu
+{%- enddoc -%}
+
+{% liquid
+  assign menu_titles = '|'
+  for link in linklist.links
+    assign normalized_title = link.title | downcase | strip
+    assign menu_titles = menu_titles | append: normalized_title | append: '|'
+  endfor
+%}
+
+{% unless menu_titles contains '|support|' %}
+  <li class="menu-list__list-item vanagain-nav-group" role="presentation">
+    <details class="vanagain-nav-details">
+      <summary class="menu-list__link vanagain-nav-summary">
+        <span class="menu-list__link-title">Support</span>
+      </summary>
+      <div class="vanagain-nav-menu">
+        <a href="/pages/faq">FAQ</a>
+        <a href="{% if shop.shipping_policy != blank %}{{ shop.shipping_policy.url }}{% else %}/pages/shipping{% endif %}">Shipping</a>
+        <a href="{% if shop.refund_policy != blank %}{{ shop.refund_policy.url }}{% else %}/pages/returns{% endif %}">Returns</a>
+        <a href="/pages/track-order">Track Order</a>
+        <a href="/pages/contact">Contact</a>
+      </div>
+    </details>
+  </li>
+{% endunless %}
+
+{% unless menu_titles contains '|company|' %}
+  <li class="menu-list__list-item vanagain-nav-group" role="presentation">
+    <details class="vanagain-nav-details">
+      <summary class="menu-list__link vanagain-nav-summary">
+        <span class="menu-list__link-title">Company</span>
+      </summary>
+      <div class="vanagain-nav-menu">
+        <a href="/pages/about">About</a>
+        <a href="/blogs/news">Blog</a>
+        <a href="/pages/rewards">Rewards</a>
+        <a href="/pages/testimonials">Testimonials</a>
+      </div>
+    </details>
+  </li>
+{% endunless %}
+
+{% unless menu_titles contains '|resources|' %}
+  <li class="menu-list__list-item vanagain-nav-group" role="presentation">
+    <details class="vanagain-nav-details">
+      <summary class="menu-list__link vanagain-nav-summary">
+        <span class="menu-list__link-title">Resources</span>
+      </summary>
+      <div class="vanagain-nav-menu">
+        <a href="/pages/vw-accessories">VW Accessories</a>
+        <a href="/pages/llms-txt">LLMs.txt</a>
+        <a href="/pages/seo">SEO Reference</a>
+        <a href="/pages/aeo">AEO Reference</a>
+        <a href="/pages/geo">GEO Reference</a>
+        <a href="/pages/privacy-terms">Privacy &amp; Terms</a>
+      </div>
+    </details>
+  </li>
+{% endunless %}

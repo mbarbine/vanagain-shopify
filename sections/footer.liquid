@@ -1,0 +1,338 @@
+
+{% liquid
+  assign current_year = 'now' | date: '%Y'
+%}
+
+<div class="vanagain-footer">
+  <div class="vanagain-footer__main section section--{{ section.settings.section_width }}">
+    <div class="vanagain-footer__grid">
+      <div class="vanagain-footer__brand">
+        <a class="vanagain-footer__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          {% if settings.logo != blank %}
+            {{ settings.logo | image_url: width: 360 | image_tag: alt: shop.name, widths: '180,240,360', loading: 'lazy' }}
+          {% elsif settings.logo_inverse != blank %}
+            {{ settings.logo_inverse | image_url: width: 360 | image_tag: alt: shop.name, widths: '180,240,360', loading: 'lazy' }}
+          {% else %}
+            {{ 'van-again-logo.png' | asset_url | image_tag: alt: shop.name, widths: '180,240,360', loading: 'lazy' }}
+          {% endif %}
+        </a>
+
+        <p class="vanagain-footer__brand-copy">
+          Vintage VW van parts backed by expert fitment guidance, fast shipping, and decades of hands-on Vanagon experience.
+        </p>
+
+        <div class="vanagain-footer__contact">
+          <a href="tel:+18882508139">888-250-8139</a>
+          <a href="https://wa.me/18563274936" target="_blank" rel="noopener noreferrer">WhatsApp: +1 856-327-4936</a>
+          <a href="mailto:support@vanagain.com">support@vanagain.com</a>
+          <span class="vanagain-footer__meta">Mon-Fri 9am-6pm EST</span>
+          <span class="vanagain-footer__meta">Sat 10am-4pm EST</span>
+          <span class="vanagain-footer__meta">Lakeshore Drive, Millville, NJ 08332 USA</span>
+        </div>
+
+        <div class="vanagain-footer__social" aria-label="Social links">
+          <a class="vanagain-footer__social-link" href="https://www.facebook.com/VanAgainInc/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a class="vanagain-footer__social-link" href="https://www.youtube.com/c/VanAgain" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a class="vanagain-footer__social-link" href="https://instagram.com/vanagain" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="vanagain-footer__links-title">Shop</h3>
+        <div class="vanagain-footer__links">
+          <a class="vanagain-footer__link" href="{{ routes.all_products_collection_url }}">All Products</a>
+          <a class="vanagain-footer__link" href="{{ routes.search_url }}">Search Parts</a>
+          <a class="vanagain-footer__link" href="{{ routes.cart_url }}">Cart</a>
+          <a class="vanagain-footer__link" href="{{ routes.all_products_collection_url }}?filter.v.availability=1">In Stock</a>
+          <a class="vanagain-footer__link" href="{{ routes.all_products_collection_url }}?filter.p.tag=Featured%20Items&filter.v.availability=1">Featured Items</a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="vanagain-footer__links-title">Support</h3>
+        <div class="vanagain-footer__links">
+          <a class="vanagain-footer__link" href="/pages/contact">Contact Us</a>
+          <a class="vanagain-footer__link" href="/pages/faq">FAQs</a>
+          <a class="vanagain-footer__link" href="{% if shop.shipping_policy != blank %}{{ shop.shipping_policy.url }}{% else %}/pages/shipping{% endif %}">Shipping Info</a>
+          <a class="vanagain-footer__link" href="{% if shop.refund_policy != blank %}{{ shop.refund_policy.url }}{% else %}/pages/returns{% endif %}">Returns &amp; Exchanges</a>
+          <a class="vanagain-footer__link" href="/pages/track-order">Track Order</a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="vanagain-footer__links-title">Company</h3>
+        <div class="vanagain-footer__links">
+          <a class="vanagain-footer__link" href="/pages/about">About Us</a>
+          <a class="vanagain-footer__link" href="/blogs/news">Blog</a>
+          <a class="vanagain-footer__link" href="/pages/rewards">Rewards</a>
+          <a class="vanagain-footer__link" href="/pages/testimonials">Testimonials</a>
+          <a class="vanagain-footer__link" href="/pages/submit-testimonial">Submit Testimonial</a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="vanagain-footer__links-title">Resources</h3>
+        <div class="vanagain-footer__links">
+          <a class="vanagain-footer__link" href="/pages/vw-accessories">VW Accessories</a>
+          <a class="vanagain-footer__link" href="/pages/llms-txt">LLMs.txt</a>
+          <a class="vanagain-footer__link" href="/pages/seo">SEO Reference</a>
+          <a class="vanagain-footer__link" href="/pages/aeo">AEO Reference</a>
+          <a class="vanagain-footer__link" href="/pages/geo">GEO Reference</a>
+          <a class="vanagain-footer__link" href="/pages/privacy-terms">Privacy &amp; Terms</a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="vanagain-footer__newsletter-title">Newsletter</h3>
+        <p class="vanagain-footer__newsletter-copy">
+          Get exclusive deals and early access to new products.
+        </p>
+        {% form 'customer', class: 'vanagain-footer__newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="vanagain-footer__newsletter-row">
+            <input
+              class="vanagain-footer__newsletter-input"
+              type="email"
+              name="contact[email]"
+              placeholder="Email address"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              {% if form.errors %}
+                aria-invalid="true"
+              {% endif %}
+              required
+            >
+            <button class="vanagain-footer__newsletter-button" type="submit">Sign up</button>
+          </div>
+          {% if form.posted_successfully? %}
+            <p class="vanagain-footer__meta">Thanks for subscribing.</p>
+          {% endif %}
+          {% if form.errors %}
+            <p class="vanagain-footer__meta">{{ form.errors | default_errors }}</p>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+
+  <div class="vanagain-footer__support section section--{{ section.settings.section_width }}">
+    <div class="vanagain-footer__support-panel">
+      <div>
+        <h3 class="vanagain-footer__support-title">Support VanAgain</h3>
+        <p class="vanagain-footer__support-copy">
+          Every order and donation helps keep classic VW vans on the road. If VanAgain has helped your project, you can support the work directly or keep shopping the parts catalog.
+        </p>
+      </div>
+
+      <a
+        class="vanagain-footer__donate"
+        href="https://www.paypal.com/donate?business=support%40vanagain.com&item_name=Support+VanAgain&currency_code=USD"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Donate to support VanAgain"
+      >
+        <span class="vanagain-footer__donate-button">Donate with PayPal</span>
+        <span class="vanagain-footer__donate-note">PayPal secure donation</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="vanagain-footer__bottom">
+    <div class="vanagain-footer__bottom-inner section section--{{ section.settings.section_width }}">
+      <p class="vanagain-footer__legal">&copy; {{ current_year }} {{ shop.name }}. All rights reserved.</p>
+      <div class="vanagain-footer__legal">
+        {% if shop.privacy_policy != blank %}
+          <a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>
+        {% endif %}
+        {% if shop.terms_of_service != blank %}
+          <a href="{{ shop.terms_of_service.url }}">Terms of Service</a>
+        {% else %}
+          <a href="/pages/privacy-terms">Privacy &amp; Terms</a>
+        {% endif %}
+        {% if shop.shipping_policy != blank %}
+          <a href="{{ shop.shipping_policy.url }}">Shipping</a>
+        {% else %}
+          <a href="/pages/shipping">Shipping</a>
+        {% endif %}
+        {% if shop.refund_policy != blank %}
+          <a href="{{ shop.refund_policy.url }}">Returns</a>
+        {% else %}
+          <a href="/pages/returns">Returns</a>
+        {% endif %}
+        <a href="/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:names.footer",
+  "class": "section-wrapper",
+  "blocks": [
+    {
+      "type": "_divider"
+    },
+    {
+      "type": "@app"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "follow-on-shop"
+    },
+    {
+      "type": "group"
+    },
+    {
+      "type": "icon"
+    },
+    {
+      "type": "image"
+    },
+    {
+      "type": "menu"
+    },
+    {
+      "type": "payment-icons"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "logo"
+    },
+    {
+      "type": "jumbo-text"
+    },
+    {
+      "type": "social-links"
+    },
+    {
+      "type": "email-signup"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "t:settings.gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "link_list",
+      "id": "footer_links_menu",
+      "label": "Company links menu (optional)"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.footer",
+      "category": "t:categories.footer",
+      "settings": {
+        "gap": 20,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 36,
+        "padding-block-end": 36
+      },
+      "blocks": {
+        "newsletter-group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "gap": 6,
+            "width": "fill",
+            "inherit_color_scheme": true
+          },
+          "blocks": {
+            "newsletter-heading": {
+              "type": "text",
+              "settings": {
+                "text": "t:html_defaults.join_our_email_list",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "h3"
+              }
+            },
+            "newsletter-text": {
+              "type": "text",
+              "settings": {
+                "text": "t:html_defaults.get_exclusive_deals_and_early_access_to_new_products",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "rte"
+              }
+            }
+          },
+          "block_order": ["newsletter-heading", "newsletter-text"]
+        },
+        "newsletter-form": {
+          "type": "email-signup",
+          "settings": {
+            "width": "fill"
+          }
+        }
+      },
+      "block_order": ["newsletter-group", "newsletter-form"]
+    }
+  ]
+}
+{% endschema %}
